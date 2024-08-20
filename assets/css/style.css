@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: 1s all;
+}
+section {
+    padding: 1rem;
+}
+body {
+    background: #fff;
+    font-family: "Raleway", sans-serif;
+}
+
+/* Header styles starts */
+.header .content .perfil {
+    display: flex;
+    justify-content: space-between;
+}
+.header .content .perfil .name p {
+    margin-bottom: 5px;
+    color: #706f6f;
+    font-size: 1.2rem;
+    font-family: "Outfit", sans-serif;
+}
+.header .content .perfil .name span {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.header .content .perfil .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header .content .perfil .icon i {
+    font-size: 1.5rem;
+ }
+.header .search {
+    background-color: #f1f1f1;
+    border: 1px solid #a1a1a1;
+    margin-top: 1.5rem;
+    padding: .6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 15px;
+}
+.header .search i {
+    font-size: 1.5rem;
+    margin-right: .8rem;
+    color: #747474;
+}
+.header .search input {
+    width: 95%;
+    font-size: 1rem;
+    border: none;
+    background-color: transparent;
+}
+.header .search input::placeholder {
+    color: #747474;
+}
+.header .search input:focus,
+.header .search input:active {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+/* Header styles end */
+
+/* Menu styles starts */
+.menu {
+    z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+    width: 100%;
+    box-shadow: #000 2px 2px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.menu i {
+    font-size: 1.2rem;
+    color: #ccc;
+}
+.menu i.active {
+    color: #f25b05;
+}
+
+/* Categories styles starts */
+.categories {
+    margin-top: 1rem;
+}
+.categories .content {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+}
+.categories .content::-webkit-scrollbar {
+    display: none;
+}
+.categories .content .item {
+    padding: .5rem 1rem;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #afafaf;
+    background-color: #f25b05;
+}
+.categories .content .item span {
+    font-size: 1rem;
+    color: #fff;
+}
+
+
+/* Esconde os conteúdos, exceto o padrão */
+.hidden {
+    display: none;
+  }
+
+  .item {
+    display: block;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+  }
+  /* ... */
+/* Categories styles ends */

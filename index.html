@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://kit.fontawesome.com/f9145d5310.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <!-- Os botões do menu starts -->
+  <section id="menu" class="menu">
+    <i class="fa-solid fa-house" id="home-icon"></i>
+    <i class="fa-solid fa-heart" id="favorities-icon"></i>
+    <i class="fa-solid fa-cart-shopping" id="cart-icon"></i>
+    <i class="fa-solid fa-user" id="profile-icon"></i>
+  </section>
+  <!-- Os botões do menu ends-->
+
+  <!-- As sections starts -->
+  <section id="home-section" class="section" style="display: block;">
+    <!-- Conteúdo da section home -->
+
+    <!-- Cabeçalho da section home starts -->
+    <header class="header">
+      <div class="content">
+        <div class="perfil">
+          <div class="name">
+            <p id="nome-usuario">Olá </p>
+            <span>Vai um lanche hoje?</span>
+          </div>
+          
+          <div class="icon">
+            <i class="fa-regular fa-bell"></i>
+          </div>
+        </div>
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Pastel de frango">
+        </div>
+      </div>
+    </header>
+    <!-- Cabeçalho da section home ends -->
+
+    <!-- Categories home starts -->
+    <div class="categories">
+      <div class="content">
+        <a href="#" class="item" data-category="pastel">
+          <span>Pastel</span>
+        </a>
+        <a href="#" class="item" data-category="bomba">
+          <span>Bomba</span>
+        </a>
+        <a href="#" class="item" data-category="coxinha">
+          <span>Coxinha</span>
+        </a>
+        <a href="#" class="item" data-category="pizza">
+          <span>Pizza</span>
+        </a>
+        <a href="#" class="item" data-category="bebidas">
+          <span>Bebidas</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Container para o conteúdo da categoria -->
+    <!-- Seção que irá mudar de conteúdo -->
+    <section id="content-section" class="products">
+      <!-- Conteúdo padrão -->
+      <div id="default-content" class="default-content"></div>
+
+      <!-- Conteúdo para Pastel -->
+      <div id="pastel-content" class="hidden">Conteúdo para Patel</div>
+
+      <!-- Conteúdo para Bomba -->
+      <div id="bomba-content" class="hidden">Conteúdo para Bomba</div>
+
+      <!-- Conteúdo para Coxinha -->
+      <div id="coxinha-content" class="hidden">Conteúdo para Coxinha</div>
+
+      <!-- Conteúdo para Pizza -->
+      <div id="pizza-content" class="hidden">Conteúdo para Pizza</div>
+
+      <!-- Conteúdo para Bebidas -->
+      <div id="bebidas-content" class="hidden">Conteúdo para Bebidas</div>
+    </section>
+
+
+
+  </section>
+
+  <section id="favorities-section" class="section" style="display: none;">
+    <!-- Conteúdo da section favorities -->
+    teste2
+  </section>
+
+  <section id="cart-section" class="section" style="display: none;">
+    <!-- Conteúdo da section cart -->
+    teste3
+  </section>
+
+  <section id="profile-section" class="section" style="display: none;">
+    <!-- Conteúdo da section profile -->
+    teste4
+  </section>
+  <!-- As sections ends -->
+
+
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>
