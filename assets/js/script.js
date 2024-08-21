@@ -19,10 +19,16 @@ homeIcon.addEventListener("click", () => {
   cartSection.style.display = "none";
   profileSection.style.display = "none";
 
+  // Mostra a div default-content
+  const defaultContent = document.getElementById("default-content");
+  defaultContent.classList.add("show");
+
   // Oculta todos os conteúdos da div de categorias
   const categoryElements = contentSection.children;
   for (let i = 0; i < categoryElements.length; i++) {
-    categoryElements[i].style.display = "none";
+    if (categoryElements[i].id !== "default-content") { 
+      categoryElements[i].classList.remove("show");
+    }
   }
   
   // Adiciona classe para mudar a cor do ícone
@@ -88,11 +94,11 @@ items.forEach((item) => {
     });
 
     const contentElement = contentSection.querySelector(`#${category}-content`);
-    contentElement.style.display = 'block';
+    contentElement.style.display = 'grid';
 
     // Adicione isso para mostrar todos os elementos dentro do conteúdo
     contentElement.querySelectorAll('*').forEach((element) => {
-      element.style.display = 'block';
+      element.style.display = '';
     });
   });
 });
