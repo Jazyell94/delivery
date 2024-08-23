@@ -2,24 +2,18 @@
 
 // Seleciona os botões
 const homeIcon = document.getElementById("home-icon");
-const favoritiesIcon = document.getElementById("favorities-icon");
 const cartIcon = document.getElementById("cart-icon");
-const profileIcon = document.getElementById("profile-icon");
 
 // Seleciona as sections
 const homeSection = document.getElementById("home-section");
-const favoritiesSection = document.getElementById("favorities-section");
 const cartSection = document.getElementById("cart-section");
-const profileSection = document.getElementById("profile-section");
 
 homeIcon.classList.add("active");
 
 // Adiciona evento de clique aos botões
 homeIcon.addEventListener("click", () => {
   homeSection.style.display = "block";
-  favoritiesSection.style.display = "none";
   cartSection.style.display = "none";
-  profileSection.style.display = "none";
 
   // Mostra a div default-content
   const defaultContent = document.getElementById("default-content");
@@ -35,51 +29,17 @@ homeIcon.addEventListener("click", () => {
   
   // Adiciona classe para mudar a cor do ícone
   homeIcon.classList.add("active");
-  favoritiesIcon.classList.remove("active");
   cartIcon.classList.remove("active");
-  profileIcon.classList.remove("active");
-});
-
-// Adiciona evento de clique aos botões
-favoritiesIcon.addEventListener("click", () => {
-  homeSection.style.display = "none";
-  favoritiesSection.style.display = "block";
-  cartSection.style.display = "none";
-  profileSection.style.display = "none";
-  
-  // Adiciona classe para mudar a cor do ícone
-  homeIcon.classList.remove("active");
-  favoritiesIcon.classList.add("active");
-  cartIcon.classList.remove("active");
-  profileIcon.classList.remove("active");
 });
 
 // Adiciona evento de clique aos botões
 cartIcon.addEventListener("click", () => {
   homeSection.style.display = "none";
-  favoritiesSection.style.display = "none";
   cartSection.style.display = "block";
-  profileSection.style.display = "none";
   
   // Adiciona classe para mudar a cor do ícone
   homeIcon.classList.remove("active");
-  favoritiesIcon.classList.remove("active");
   cartIcon.classList.add("active");
-  profileIcon.classList.remove("active");
-});
-
-// Adiciona evento de clique aos botões
-profileIcon.addEventListener("click", () => {
-  homeSection.style.display = "none";
-  favoritiesSection.style.display = "none";
-  cartSection.style.display = "none";
-  profileSection.style.display = "block";
-  
-  // Adiciona classe para mudar a cor do ícone
-  homeIcon.classList.remove("active");
-  favoritiesIcon.classList.remove("active");
-  cartIcon.classList.remove("active");
-  profileIcon.classList.add("active");
 });
 
 
@@ -135,7 +95,7 @@ const defaultContent = document.getElementById('default-content');
 let defaultContainer = document.getElementById('default-content');
 let products = [];
 
-fetch('data/default.json')
+fetch('/data/default.json')
   .then(response => response.json())
   .then(data => {
     products = data;
@@ -170,7 +130,7 @@ function renderDefaultProducts() {
 let pastelContainer = document.getElementById('pastel-content');
 let pastel = [];
 
-fetch('data/pastel.json')
+fetch('/data/pastel.json')
   .then(response => response.json())
   .then(data => {
     pastel = data;
@@ -205,7 +165,7 @@ function renderPastelProducts() {
 let bombaContainer = document.getElementById('bomba-content');
 let bomba = [];
 
-fetch('data/bomba.json')
+fetch('/data/bomba.json')
   .then(response => response.json())
   .then(data => {
     bomba = data;
@@ -240,7 +200,7 @@ function renderBombaProducts() {
 let coxinhaContainer = document.getElementById('coxinha-content');
 let coxinha = [];
 
-fetch('data/coxinha.json')
+fetch('/data/coxinha.json')
   .then(response => response.json())
   .then(data => {
     coxinha = data;
@@ -275,7 +235,7 @@ function renderCoxinhaProducts() {
 let pizzaContainer = document.getElementById('pizza-content');
 let pizza = [];
 
-fetch('data/pizza.json')
+fetch('/data/pizza.json')
   .then(response => response.json())
   .then(data => {
     pizza = data;
@@ -310,7 +270,7 @@ function renderPizzaProducts() {
 let bebidasContainer = document.getElementById('bebidas-content');
 let bebidas = [];
 
-fetch('data/bebidas.json')
+fetch('/data/bebidas.json')
   .then(response => response.json())
   .then(data => {
     bebidas = data;
@@ -330,7 +290,7 @@ function renderBebidasProducts() {
             <span>${product.name}</span>
             <div class="price">
               <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart"></i>
+              <i class="fa-solid fa-plus add-to-cart" data-product-id="${product.id}"></i>
             </div>
           </div>
         </div>
@@ -341,70 +301,108 @@ function renderBebidasProducts() {
 }
 ////////////////////////////////////////
 
-const profilePictureInput = document.getElementById('profile-picture-input');
-const profilePictureImg = document.getElementById('profile-picture');
-const profileNameInput = document.getElementById('profile-name-input');
-const profileNameDisplay = document.getElementById('profile-name-display');
-const saveProfileBtn = document.getElementById('save-profile-btn');
+// Seleciona o container do carrinho
 
-let isEditing = false;
+let cartContainer = document.getElementById('cart-container');
 
-// Recuperar a imagem e o nome do localStorage quando a página for carregada
-const storedProfilePicture = localStorage.getItem('profilePicture');
-const storedProfileName = localStorage.getItem('profileName');
-if (storedProfilePicture) {
-  profilePictureImg.src = storedProfilePicture;
-}
-if (storedProfileName) {
-  profileNameDisplay.textContent = storedProfileName;
-  profileNameInput.style.display = 'none';
-  saveProfileBtn.textContent = 'Editar perfil';
-  isEditing = true;
-}
+// Initialize an empty cart
+let cart = {};
+// Create a global variable to store all products
+let allProducts = [];
 
-profilePictureInput.addEventListener('change', () => {
-  const file = profilePictureInput.files[0];
-  const reader = new FileReader();
-  reader.onload = () => {
-    const imageData = reader.result;
-    profilePictureImg.src = imageData;
-    // Atualizar o valor do profileNameDisplay aqui
-    profileNameDisplay.textContent = profileNameInput.value;
-  };
-  reader.readAsDataURL(file);
+// ...
+
+// Fetch data for each product type and add to allProducts
+fetch('../data/default.json')
+  .then(response => response.json())
+  .then(data => {
+    allProducts = [...allProducts, ...data];
+    renderDefaultProducts();
+  });
+
+fetch('../data/pastel.json')
+  .then(response => response.json())
+  .then(data => {
+    allProducts = [...allProducts, ...data];
+    renderPastelProducts();
+  });
+
+fetch('../data/bomba.json')
+  .then(response => response.json())
+  .then(data => {
+    allProducts = [...allProducts, ...data];
+    renderBombaProducts();
+  });
+
+fetch('../data/coxinha.json')
+  .then(response => response.json())
+  .then(data => {
+    allProducts = [...allProducts, ...data];
+    renderCoxinhaProducts();
+  });
+
+fetch('../data/pizza.json')
+  .then(response => response.json())
+  .then(data => {
+    allProducts = [...allProducts, ...data];
+    renderPizzaProducts();
+  });
+
+fetch('../data/bebidas.json')
+  .then(response => response.json())
+  .then(data => {
+    allProducts = [...allProducts, ...data];
+    renderBebidasProducts();
+  });
+
+// ...
+
+// Add event listeners to the "Add to Cart" buttons
+// ...
+
+// Add event listeners to the "Add to Cart" buttons
+document.querySelectorAll('.add-to-cart').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const productId = btn.getAttribute('data-product-id');
+    const product = allProducts.find(p => p.id === productId);
+    console.log(`Adding product to cart: ${product.name}`);
+    addProductToCart(product);
+  });
 });
 
-const usernameDisplay = document.getElementById('username-display');
-
-saveProfileBtn.addEventListener('click', () => {
-  if (isEditing) {
-    // Modo de edição
-    profileNameInput.style.display = 'block';
-    profileNameDisplay.style.display = 'none';
-    saveProfileBtn.textContent = 'Salvar perfil';
-    isEditing = false;
+// Function to add product to cart
+function addProductToCart(product) {
+  console.log(`Adding product to cart: ${product.name}`);
+  // Check if the product already exists in the cart
+  if (cart[product.id]) {
+    // Increment the quantity of the existing product
+    cart[product.id].quantity++;
   } else {
-    // Modo de salvar
-    const profilePicture = profilePictureImg.src;
-    const profileName = profileNameInput.value;
-    console.log(`Profile name: ${profileName}`); // Add this line to check the value of profileName
-    localStorage.setItem('profilePicture', profilePicture);
-    localStorage.setItem('profileName', profileName);
-    const event = new Event('input', { bubbles: true });
-    profileNameInput.dispatchEvent(event);
-    profileNameDisplay.textContent = profileName; // Atualizar o texto imediatamente
-    localStorage.setItem('profileName', profileName);
-    usernameDisplay.innerHTML = `${localStorage.getItem('profileName')}`;
-    profileNameInput.style.display = 'none';
-    saveProfileBtn.textContent = 'Editar perfil';
-    isEditing = true;
-    alert('Perfil salvo com sucesso!');
+    // Add a new product to the cart
+    cart[product.id] = { ...product, quantity: 1 };
   }
-});
+  console.log(`Cart updated: ${JSON.stringify(cart)}`);
+  saveCart(cart);
+  updateCartUI();
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-  const storedProfileName = localStorage.getItem('profileName');
-  if (storedProfileName) {
-    usernameDisplay.innerHTML = `${storedProfileName}`;
+// Function to update the cart UI
+function updateCartUI() {
+  console.log('Updating cart UI...');
+  if (cartContainer) {
+    const currentCart = getCart();
+    const cartHTML = Object.values(currentCart).map(product => `
+      <li>
+        ${product.name} x ${product.quantity}
+        <span>${product.price * product.quantity}</span>
+      </li>
+    `).join('');
+    cartContainer.innerHTML = cartHTML;
+    console.log(`Cart UI updated: ${cartHTML}`);
+  } else {
+    console.error('Cart container element not found');
   }
-});
+}
+
+// Initialize the cart UI
+updateCartUI();
