@@ -154,7 +154,7 @@ const defaultContent = document.getElementById('default-content');
 let defaultContainer = document.getElementById('default-content');
 let products = [];
 
-fetch('/data/default.json')
+fetch('data/default.json')
   .then(response => response.json())
   .then(data => {
     products = data;
@@ -205,7 +205,7 @@ function adicionarAoCarrinho(product) {
 let pastelContainer = document.getElementById('pastel-content');
 let pastel = [];
 
-fetch('/data/pastel.json')
+fetch('data/pastel.json')
   .then(response => response.json())
   .then(data => {
     pastel = data;
@@ -256,7 +256,7 @@ function adicionarAoCarrinho(product) {
 let bombaContainer = document.getElementById('bomba-content');
 let bomba = [];
 
-fetch('/data/bomba.json')
+fetch('data/bomba.json')
   .then(response => response.json())
   .then(data => {
     bomba = data;
@@ -307,7 +307,7 @@ function adicionarAoCarrinho(product) {
 let coxinhaContainer = document.getElementById('coxinha-content');
 let coxinha = [];
 
-fetch('/data/coxinha.json')
+fetch('data/coxinha.json')
   .then(response => response.json())
   .then(data => {
     coxinha = data;
@@ -358,7 +358,7 @@ function adicionarAoCarrinho(product) {
 let pizzaContainer = document.getElementById('pizza-content');
 let pizza = [];
 
-fetch('/data/pizza.json')
+fetch('data/pizza.json')
   .then(response => response.json())
   .then(data => {
     pizza = data;
@@ -409,7 +409,7 @@ function adicionarAoCarrinho(product) {
 let bebidasContainer = document.getElementById('bebidas-content');
 let bebidas = [];
 
-fetch('/data/bebidas.json')
+fetch('data/bebidas.json')
   .then(response => response.json())
   .then(data => {
     bebidas = data;
