@@ -1,4 +1,63 @@
-// MUADR A SECTION NO MENU //
+// ESTRUTURA PARA LOJA FECHADA //
+const horarioAberto = {
+  segunda: [[8, 18]], // 8h às 18h
+  terca: [[8, 18]], // 8h às 18h
+  quarta: [[8, 18]], // 8h às 18h
+  quinta: [[8, 18]], // 8h às 18h
+  sexta: [[8, 18]] // 8h às 18h
+};
+
+function verificarHorario() {
+  const agora = new Date();
+  const diaSem = agora.getDay(); // 0 = Domingo, 1 = Segunda-feira, ..., 6 = Sábado
+  const hora = agora.getHours();
+  const minuto = agora.getMinutes();
+
+  let dia = '';
+  switch (diaSem) {
+      case 1:
+          dia = 'segunda';
+          break;
+      case 2:
+          dia = 'terca';
+          break;
+      case 3:
+          dia = 'quarta';
+          break;
+      case 4:
+          dia = 'quinta';
+          break;
+      case 5:
+          dia = 'sexta';
+          break;
+      default:
+          document.getElementById('site-content').style.display = 'none';
+          document.getElementById('loja-fechada').style.display = 'block';
+          return;
+  }
+
+  let horaAbertura = 9; // 9:00h
+  let horaFechamento = 18; // 18:00h
+
+  if (dia === 'sexta') {
+      horaFechamento = 18; // 18:00h na sexta-feira
+  }
+
+  if (hora >= horaAbertura && hora < horaFechamento) {
+      document.getElementById('site-content').style.display = 'block';
+      document.getElementById('loja-fechada').style.display = 'none';
+  } else {
+      document.getElementById('site-content').style.display = 'none';
+      document.getElementById('loja-fechada').style.display = 'block';
+  }
+}
+
+// Executa a função ao carregar a página
+window.onload = verificarHorario;
+
+///////////////////////////////////////////////////////////////////////////////////
+
+// ESTRUTURA PARA MUDAR A SECTION NO MENU //
 
 // Seleciona os botões
 const homeIcon = document.getElementById("home-icon");
@@ -63,9 +122,9 @@ items.forEach((item) => {
     });
   });
 });
-///////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 
-// OCUTA TODOS AS CATEGORIAS NO CONTEUDO PADRAO //
+// ESTRUTURA PARA OCUTAR TODAS AS CATEGORIAS NO CONTEUDO PADRAO //
 const categories = document.querySelectorAll('.hidden');
 const defaultContent = document.getElementById('default-content');
 
@@ -89,7 +148,7 @@ const defaultContent = document.getElementById('default-content');
       categoryContent.style.display = 'block';
     });
   });
-//////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA DEFAULT CONTAINER //
 let defaultContainer = document.getElementById('default-content');
@@ -104,7 +163,7 @@ fetch('/data/default.json')
 
 function renderDefaultProducts() {
   defaultContainer.innerHTML = '';
-  products.forEach(product => {
+  products.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -115,7 +174,7 @@ function renderDefaultProducts() {
             <span>${product.name}</span>
             <div class="price">
               <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart"></i>
+              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
             </div>
           </div>
         </div>
@@ -123,8 +182,24 @@ function renderDefaultProducts() {
     `;
     defaultContainer.insertAdjacentHTML('beforeend', productHTML);
   });
+
+  const plusIcons = defaultContainer.querySelectorAll('.fa-plus');
+  plusIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const product = products[icon.dataset.index];
+      adicionarAoCarrinho(product);
+    });
+  });
 }
-///////////////////////////////////////
+
+function adicionarAoCarrinho(product) {
+  if (product) {
+    updateCart(product, 'add');
+  } else {
+    console.error("Produto não encontrado");
+  }
+}
+//////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA PASTEL CONTAINER //
 let pastelContainer = document.getElementById('pastel-content');
@@ -139,7 +214,7 @@ fetch('/data/pastel.json')
 
 function renderPastelProducts() {
   pastelContainer.innerHTML = '';
-  pastel.forEach(product => {
+  pastel.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -150,7 +225,7 @@ function renderPastelProducts() {
             <span>${product.name}</span>
             <div class="price">
               <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart"></i>
+              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
             </div>
           </div>
         </div>
@@ -158,8 +233,24 @@ function renderPastelProducts() {
     `;
     pastelContainer.insertAdjacentHTML('beforeend', productHTML);
   });
+
+  const plusIcons = pastelContainer.querySelectorAll('.fa-plus');
+  plusIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const product = pastel[icon.dataset.index];
+      adicionarAoCarrinho(product);
+    });
+  });
 }
-////////////////////////////////////////
+
+function adicionarAoCarrinho(product) {
+  if (product) {
+    updateCart(product, 'add');
+  } else {
+    console.error("Produto não encontrado");
+  }
+}
+//////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA BOMBA CONTAINER //
 let bombaContainer = document.getElementById('bomba-content');
@@ -174,7 +265,7 @@ fetch('/data/bomba.json')
 
 function renderBombaProducts() {
   bombaContainer.innerHTML = '';
-  bomba.forEach(product => {
+  bomba.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -185,7 +276,7 @@ function renderBombaProducts() {
             <span>${product.name}</span>
             <div class="price">
               <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart"></i>
+              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
             </div>
           </div>
         </div>
@@ -193,8 +284,24 @@ function renderBombaProducts() {
     `;
     bombaContainer.insertAdjacentHTML('beforeend', productHTML);
   });
+
+  const plusIcons = bombaContainer.querySelectorAll('.fa-plus');
+  plusIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const product = bomba[icon.dataset.index];
+      adicionarAoCarrinho(product);
+    });
+  });
 }
-////////////////////////////////////////
+
+function adicionarAoCarrinho(product) {
+  if (product) {
+    updateCart(product, 'add');
+  } else {
+    console.error("Produto não encontrado");
+  }
+}
+///////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA COXINHA CONTAINER //
 let coxinhaContainer = document.getElementById('coxinha-content');
@@ -209,7 +316,7 @@ fetch('/data/coxinha.json')
 
 function renderCoxinhaProducts() {
   coxinhaContainer.innerHTML = '';
-  coxinha.forEach(product => {
+  coxinha.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -220,7 +327,7 @@ function renderCoxinhaProducts() {
             <span>${product.name}</span>
             <div class="price">
               <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart"></i>
+              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
             </div>
           </div>
         </div>
@@ -228,8 +335,24 @@ function renderCoxinhaProducts() {
     `;
     coxinhaContainer.insertAdjacentHTML('beforeend', productHTML);
   });
+
+  const plusIcons = coxinhaContainer.querySelectorAll('.fa-plus');
+  plusIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const product = coxinha[icon.dataset.index];
+      adicionarAoCarrinho(product);
+    });
+  });
 }
-////////////////////////////////////////
+
+function adicionarAoCarrinho(product) {
+  if (product) {
+    updateCart(product, 'add');
+  } else {
+    console.error("Produto não encontrado");
+  }
+}
+/////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA PIZZA CONTAINER //
 let pizzaContainer = document.getElementById('pizza-content');
@@ -244,7 +367,7 @@ fetch('/data/pizza.json')
 
 function renderPizzaProducts() {
   pizzaContainer.innerHTML = '';
-  pizza.forEach(product => {
+  pizza.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -255,7 +378,7 @@ function renderPizzaProducts() {
             <span>${product.name}</span>
             <div class="price">
               <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart"></i>
+              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
             </div>
           </div>
         </div>
@@ -263,8 +386,24 @@ function renderPizzaProducts() {
     `;
     pizzaContainer.insertAdjacentHTML('beforeend', productHTML);
   });
+
+  const plusIcons = pizzaContainer.querySelectorAll('.fa-plus');
+  plusIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const product = pizza[icon.dataset.index];
+      adicionarAoCarrinho(product);
+    });
+  });
 }
-////////////////////////////////////////
+
+function adicionarAoCarrinho(product) {
+  if (product) {
+    updateCart(product, 'add');
+  } else {
+    console.error("Produto não encontrado");
+  }
+}
+///////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA BEBIDAS CONTAINER //
 let bebidasContainer = document.getElementById('bebidas-content');
@@ -279,7 +418,7 @@ fetch('/data/bebidas.json')
 
 function renderBebidasProducts() {
   bebidasContainer.innerHTML = '';
-  bebidas.forEach(product => {
+  bebidas.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -290,7 +429,7 @@ function renderBebidasProducts() {
             <span>${product.name}</span>
             <div class="price">
               <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart" data-product-id="${product.id}"></i>
+              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
             </div>
           </div>
         </div>
@@ -298,111 +437,94 @@ function renderBebidasProducts() {
     `;
     bebidasContainer.insertAdjacentHTML('beforeend', productHTML);
   });
+
+  const plusIcons = bebidasContainer.querySelectorAll('.fa-plus');
+  plusIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const product = bebidas[icon.dataset.index];
+      adicionarAoCarrinho(product);
+    });
+  });
 }
-////////////////////////////////////////
 
-// Seleciona o container do carrinho
-
-let cartContainer = document.getElementById('cart-container');
-
-// Initialize an empty cart
-let cart = {};
-// Create a global variable to store all products
-let allProducts = [];
-
-// ...
-
-// Fetch data for each product type and add to allProducts
-fetch('../data/default.json')
-  .then(response => response.json())
-  .then(data => {
-    allProducts = [...allProducts, ...data];
-    renderDefaultProducts();
-  });
-
-fetch('../data/pastel.json')
-  .then(response => response.json())
-  .then(data => {
-    allProducts = [...allProducts, ...data];
-    renderPastelProducts();
-  });
-
-fetch('../data/bomba.json')
-  .then(response => response.json())
-  .then(data => {
-    allProducts = [...allProducts, ...data];
-    renderBombaProducts();
-  });
-
-fetch('../data/coxinha.json')
-  .then(response => response.json())
-  .then(data => {
-    allProducts = [...allProducts, ...data];
-    renderCoxinhaProducts();
-  });
-
-fetch('../data/pizza.json')
-  .then(response => response.json())
-  .then(data => {
-    allProducts = [...allProducts, ...data];
-    renderPizzaProducts();
-  });
-
-fetch('../data/bebidas.json')
-  .then(response => response.json())
-  .then(data => {
-    allProducts = [...allProducts, ...data];
-    renderBebidasProducts();
-  });
-
-// ...
-
-// Add event listeners to the "Add to Cart" buttons
-// ...
-
-// Add event listeners to the "Add to Cart" buttons
-document.querySelectorAll('.add-to-cart').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const productId = btn.getAttribute('data-product-id');
-    const product = allProducts.find(p => p.id === productId);
-    console.log(`Adding product to cart: ${product.name}`);
-    addProductToCart(product);
-  });
-});
-
-// Function to add product to cart
-function addProductToCart(product) {
-  console.log(`Adding product to cart: ${product.name}`);
-  // Check if the product already exists in the cart
-  if (cart[product.id]) {
-    // Increment the quantity of the existing product
-    cart[product.id].quantity++;
+function adicionarAoCarrinho(product) {
+  if (product) {
+    updateCart(product, 'add');
   } else {
-    // Add a new product to the cart
-    cart[product.id] = { ...product, quantity: 1 };
+    console.error("Produto não encontrado");
   }
-  console.log(`Cart updated: ${JSON.stringify(cart)}`);
-  saveCart(cart);
-  updateCartUI();
 }
+///////////////////////////////////////////////////////////////////////////////
 
-// Function to update the cart UI
-function updateCartUI() {
-  console.log('Updating cart UI...');
-  if (cartContainer) {
-    const currentCart = getCart();
-    const cartHTML = Object.values(currentCart).map(product => `
-      <li>
-        ${product.name} x ${product.quantity}
-        <span>${product.price * product.quantity}</span>
-      </li>
-    `).join('');
-    cartContainer.innerHTML = cartHTML;
-    console.log(`Cart UI updated: ${cartHTML}`);
+let cart = {
+  products: [],
+  totalPrice: 0,
+};
+
+function adicionarAoCarrinho(product) {
+  if (product) {
+    updateCart(product, 'add');
   } else {
-    console.error('Cart container element not found');
+    console.error("Produto não encontrado");
   }
 }
 
-// Initialize the cart UI
-updateCartUI();
+function updateCart(product, action) {
+  if (action === 'add') {
+    const existingProduct = cart.products.find(p => p.id === product.id);
+    if (existingProduct) {
+      existingProduct.quantity++;
+    } else {
+      cart.products.push({ ...product, quantity: 1 });
+    }
+  } else if (action === 'remove') {
+    const index = cart.products.findIndex(p => p.id === product.id);
+    if (index >= 0) {
+      cart.products.splice(index, 1);
+    }
+  }
+
+  cart.totalPrice = cart.products.reduce((acc, p) => acc + p.price * p.quantity, 0);
+
+  renderCart();
+}
+
+function renderCart() {
+  const cartContainer = document.getElementById('cart-container');
+  while (cartContainer.firstChild) cartContainer.removeChild(cartContainer.firstChild);
+
+  let totalPrice = 0;
+  cart.products.forEach(product => {
+    const priceValue = product.price.replace('R$ ', '').replace(',', '.'); // extract numeric value from price string
+    const priceNumber = parseFloat(priceValue); // convert to number
+
+    const cartItemHTML = `
+      <div class="cart-item">
+        <span>${product.name} x ${product.quantity}</span>
+        <span>R$ ${priceNumber * product.quantity}</span>
+        <i class="fa-solid fa-trash" data-product-id="${product.id}"></i>
+      </div>
+    `;
+    cartContainer.insertAdjacentHTML('beforeend', cartItemHTML);
+    totalPrice += priceNumber * product.quantity;
+  });
+
+  const totalPriceHTML = `
+    <div class="cart-total">
+      Total: R$ ${totalPrice.toFixed(2)}
+    </div>
+  `;
+  cartContainer.insertAdjacentHTML('beforeend', totalPriceHTML);
+
+
+
+  // Adiciona evento de clique nos ícones de lixeira
+  const removeIcons = cartContainer.querySelectorAll('.fa-trash');
+  removeIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const productId = icon.getAttribute('data-product-id');
+      const product = cart.products.find(p => p.id === productId);
+      updateCart(product, 'remove');
+    });
+  });
+}

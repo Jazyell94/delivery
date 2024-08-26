@@ -2,22 +2,26 @@
     {
       "name": "Coca-cola",
       "price": "R$ 5,50",
-      "image": ""
+      "image": "",
+      "id": "1"
     },
     {
       "name": "Pastel de carne",
       "price": "R$ 5,50",
-      "image": ""
+      "image": "",
+      "id": "2"
     },
     {
       "name": "Pastel de carne",
       "price": "R$ 5,50",
-      "image": ""
+      "image": "",
+      "id": "3"
     },
     {
       "name": "Pastel de carne",
       "price": "R$ 5,50",
-      "image": ""
+      "image": "",
+      "id": "4"
     },
     {
       "name": "Bomba de carne",
