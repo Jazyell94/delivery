@@ -1,6 +1,6 @@
 // ESTRUTURA PARA LOJA FECHADA //
 const horarioAberto = {
-  
+  segunda: [[6, 18]], // 8h às 18h
   terca: [[8, 18]], // 8h às 18h
   quarta: [[8, 18]], // 8h às 18h
   quinta: [[8, 18]], // 8h às 18h
@@ -15,7 +15,9 @@ function verificarHorario() {
 
   let dia = '';
   switch (diaSem) {
-
+      case 1:
+          dia = 'segunda';
+          break;
       case 2:
           dia = 'terca';
           break;
@@ -34,8 +36,8 @@ function verificarHorario() {
           return;
   }
 
-  let horaAbertura = 9; // 9:00h
-  let horaFechamento = 23; // 18:00h
+  let horaAbertura = 6; // 9:00h
+  let horaFechamento = 18; // 18:00h
 
   if (dia === 'sexta') {
       horaFechamento = 18; // 18:00h na sexta-feira
@@ -152,7 +154,7 @@ const defaultContent = document.getElementById('default-content');
 let defaultContainer = document.getElementById('default-content');
 let products = [];
 
-fetch('data/default.json')
+fetch('/data/default.json')
   .then(response => response.json())
   .then(data => {
     products = data;
@@ -203,7 +205,7 @@ function adicionarAoCarrinho(product) {
 let pastelContainer = document.getElementById('pastel-content');
 let pastel = [];
 
-fetch('data/pastel.json')
+fetch('/data/pastel.json')
   .then(response => response.json())
   .then(data => {
     pastel = data;
@@ -254,7 +256,7 @@ function adicionarAoCarrinho(product) {
 let bombaContainer = document.getElementById('bomba-content');
 let bomba = [];
 
-fetch('data/bomba.json')
+fetch('/data/bomba.json')
   .then(response => response.json())
   .then(data => {
     bomba = data;
@@ -305,7 +307,7 @@ function adicionarAoCarrinho(product) {
 let coxinhaContainer = document.getElementById('coxinha-content');
 let coxinha = [];
 
-fetch('data/coxinha.json')
+fetch('/data/coxinha.json')
   .then(response => response.json())
   .then(data => {
     coxinha = data;
@@ -356,7 +358,7 @@ function adicionarAoCarrinho(product) {
 let pizzaContainer = document.getElementById('pizza-content');
 let pizza = [];
 
-fetch('data/pizza.json')
+fetch('/data/pizza.json')
   .then(response => response.json())
   .then(data => {
     pizza = data;
@@ -407,7 +409,7 @@ function adicionarAoCarrinho(product) {
 let bebidasContainer = document.getElementById('bebidas-content');
 let bebidas = [];
 
-fetch('data/bebidas.json')
+fetch('/data/bebidas.json')
   .then(response => response.json())
   .then(data => {
     bebidas = data;
@@ -441,6 +443,7 @@ function renderBebidasProducts() {
     icon.addEventListener('click', () => {
       const product = bebidas[icon.dataset.index];
       adicionarAoCarrinho(product);
+      alert('Produto adicionado ao carrinho!');
     });
   });
 }
@@ -454,6 +457,7 @@ function adicionarAoCarrinho(product) {
 }
 ///////////////////////////////////////////////////////////////////////////////
 
+// ESTRUTURA PARA O CARRINHO //
 let cart = {
   products: [],
   totalPrice: 0,
@@ -485,6 +489,19 @@ function updateCart(product, action) {
   cart.totalPrice = cart.products.reduce((acc, p) => acc + p.price * p.quantity, 0);
 
   renderCart();
+
+  if (cart.products.length === 0) {
+    showEmptyCart();
+  }
+}
+
+function showEmptyCart() {
+  const cartContainer = document.getElementById('cart-container');
+  cartContainer.innerHTML = `
+    <div class="cart-vazio">
+      Seu carrinho está vazio!
+    </div>
+  `;
 }
 
 function renderCart() {
@@ -498,9 +515,16 @@ function renderCart() {
 
     const cartItemHTML = `
       <div class="cart-item">
-        <span>${product.name} x ${product.quantity}</span>
-        <span>R$ ${priceNumber * product.quantity}</span>
-        <i class="fa-solid fa-trash" data-product-id="${product.id}"></i>
+        <div class="product-image">
+          <img src="${product.image}" alt="${product.name}" />
+        </div>
+        <span>${product.name}</span>
+        <span>R$ ${priceNumber}</span>
+        <div class="quantity-container">
+          <i class="fa-solid fa-minus" data-product-id="${product.id}"></i>
+          <span id="quantity-${product.id}">${product.quantity}</span>
+          <i class="fa-solid fa-plus" data-product-id="${product.id}"></i>
+        </div>
       </div>
     `;
     cartContainer.insertAdjacentHTML('beforeend', cartItemHTML);
@@ -510,19 +534,120 @@ function renderCart() {
   const totalPriceHTML = `
     <div class="cart-total">
       Total: R$ ${totalPrice.toFixed(2)}
+      <div class="cart-finish">
+        Finalizar
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
     </div>
   `;
   cartContainer.insertAdjacentHTML('beforeend', totalPriceHTML);
 
 
-
-  // Adiciona evento de clique nos ícones de lixeira
-  const removeIcons = cartContainer.querySelectorAll('.fa-trash');
-  removeIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      const productId = icon.getAttribute('data-product-id');
-      const product = cart.products.find(p => p.id === productId);
-      updateCart(product, 'remove');
-    });
-  });
+  
+  // Add event listener to the "Finalizar" button
+  const finishButton = cartContainer.querySelector('.cart-finish');
+  finishButton.addEventListener('click', () => showCustomerDetailsForm(totalPrice));
 }
+
+// Update the showCustomerDetailsForm function
+function showCustomerDetailsForm(totalPrice) {
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+
+  const overlayContent = document.createElement('div');
+  overlayContent.className = 'overlay-content';
+
+  overlayContent.innerHTML = `
+    <h2>Nome e Endereço</h2>
+    <input id="customer-name" type="text" placeholder="Nome">
+    <input id="customer-address" type="text" placeholder="Endereço">
+    <button id="send-to-whatsapp">Enviar</button>
+  `;
+
+  overlay.appendChild(overlayContent);
+  document.body.appendChild(overlay);
+
+  overlay.classList.add('show');
+
+  // Add event listener to the "Enviar para WhatsApp" button
+  const sendToWhatsAppButton = overlayContent.querySelector('#send-to-whatsapp');
+  sendToWhatsAppButton.addEventListener('click', () => sendCartToWhatsApp(totalPrice));
+}
+
+function sendCartToWhatsApp(totalPrice) {
+  const customerNameInput = document.getElementById('customer-name');
+  const customerAddressInput = document.getElementById('customer-address');
+
+  const customerName = customerNameInput.value;
+  const customerAddress = customerAddressInput.value;
+
+  // Create a string to send to WhatsApp
+  let message = `Olá! Eu sou ${customerName} e gostaria de fazer um pedido para entrega em\n`;
+  message += `Rua: ${customerAddress}\n`;
+
+  // Loop through the cart items and add them to the message
+  cart.products.forEach(product => {
+    message += `Produto: ${product.name} x ${product.quantity} - R$ ${product.price}\n`;
+  });
+
+  // Add the total price to the message
+  message += `Total: R$ ${totalPrice.toFixed(2)}`;
+
+  // Open WhatsApp with the message
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER&text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+
+ 
+
+  // Selecione todos os botões de quantidade
+const quantityButtons = document.querySelectorAll('.quantity-container i');
+
+// Adicione um evento de clique em cada botão
+quantityButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Pegue o ID do produto
+    const productId = button.getAttribute('data-product-id');
+
+    // Pegue o produto correspondente no carrinho
+    const product = cart.products.find(p => p.id === productId);
+
+    // Pegue o elemento de quantidade
+    const quantityElement = document.getElementById(`quantity-${productId}`);
+
+    // Atualize a quantidade
+    if (button.classList.contains('fa-minus')) {
+      // Diminua a quantidade
+      if (product.quantity > 1) {
+        product.quantity -= 1;
+        quantityElement.textContent = product.quantity;
+      } else {
+        // Confirme antes de remover o produto do carrinho
+        if (confirm(`Tem certeza que deseja remover ${product.name} do carrinho?`)) {
+          updateCart(product, 'remove');
+        }
+      }
+    } else if (button.classList.contains('fa-plus')) {
+      // Aumente a quantidade
+      product.quantity += 1;
+      quantityElement.textContent = product.quantity;
+    }
+
+    // Atualize o preço total do carrinho
+    renderCart(); // Call renderCart to update the total price
+  });
+});
+
+
+
+
+
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+// Adicionar evento de clique no botão "Finalizar"
+
+
+// Função para finalizar a compra e enviar informações para o WhatsApp
+
+

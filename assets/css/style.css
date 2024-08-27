@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 * {
     padding: 0;
@@ -12,10 +13,11 @@ section {
 }
 body {
     background: #fff;
-    font-family: "Raleway", sans-serif;
+    font-family: "Mulish", sans-serif;
 }
 .heading {
     text-align: center;
+    margin-bottom: 1rem;
 }
 
 .site-content {
@@ -164,8 +166,12 @@ body {
 }
 .products .product-container .product-img {
     background: #ccc;
+    border: 1px solid #ccc;
     width: 90%;
     height: 6rem;
+}
+.products .product-container .product-img img {
+    width: 100%;
 }
 .products .product-container .product-desc {
     display: flex;
@@ -245,3 +251,91 @@ body {
     display: block;
 }
 
+
+
+/*//////////////// CARRINHO //////////////////*/
+.cart-vazio {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart-item {
+    margin-bottom: .5rem;
+    padding: .5rem ;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.cart-item .product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    background-color: #a1a1a1;
+    border: 1px solid #ccc;
+}
+.cart-item .product-image img {
+    font-size: .7rem;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+.cart-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    width: 90%;
+    border-radius: 10px;
+    left: 1rem;
+    bottom: 4rem;
+    padding: .5rem;
+    color: #fff;
+    background-color: #f25b05;
+}
+
+
+
+/* Add this to your CSS file */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .overlay.show {
+    display: flex;
+  }
+  
+  .overlay-content {
+    background-color: #fff;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    margin: 40px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .overlay-content input {
+    width: 90%;
+    height: 2rem;
+    margin-top: 1rem;
+  }
+
+  .overlay-content button {
+    background-color: #f25b05;
+    color: #fff;
+    font-size: 1rem;
+    margin-top: 1rem;
+    padding: .8rem;
+    border: none;
+  }
