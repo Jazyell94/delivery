@@ -1,7 +1,7 @@
 // ESTRUTURA PARA LOJA FECHADA //
 const horarioAberto = {
   segunda: [[6, 23]], // 8h às 18h
-  terca: [[8, 18]], // 8h às 18h
+  terca: [[8, 23]], // 8h às 18h
   quarta: [[8, 18]], // 8h às 18h
   quinta: [[8, 18]], // 8h às 18h
   sexta: [[8, 18]] // 8h às 18h
