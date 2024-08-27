@@ -1,7 +1,7 @@
 // ESTRUTURA PARA LOJA FECHADA //
 const horarioAberto = {
   segunda: [[6, 23]], // 8h às 18h
-  terca: [[8, 23]], // 8h às 18h
+  terca: [[8, 0]], // 8h às 18h
   quarta: [[8, 18]], // 8h às 18h
   quinta: [[8, 18]], // 8h às 18h
   sexta: [[8, 18]] // 8h às 18h
@@ -15,7 +15,9 @@ function verificarHorario() {
 
   let dia = '';
   switch (diaSem) {
-      
+      case 2:
+          dia = 'terca';
+          break;
       case 3:
           dia = 'quarta';
           break;
@@ -32,7 +34,7 @@ function verificarHorario() {
   }
 
   let horaAbertura = 6; // 9:00h
-  let horaFechamento = 23; // 18:00h
+  let horaFechamento = 0; // 18:00h
 
   if (dia === 'sexta') {
       horaFechamento = 18; // 18:00h na sexta-feira
