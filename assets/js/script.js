@@ -16,9 +16,6 @@ function verificarHorario() {
   let dia = '';
   switch (diaSem) {
       
-      case 2:
-          dia = 'terca';
-          break;
       case 3:
           dia = 'quarta';
           break;
