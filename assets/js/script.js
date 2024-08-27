@@ -15,9 +15,7 @@ function verificarHorario() {
 
   let dia = '';
   switch (diaSem) {
-      case 1:
-          dia = 'segunda';
-          break;
+
       case 2:
           dia = 'terca';
           break;
