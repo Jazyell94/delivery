@@ -35,7 +35,7 @@ function verificarHorario() {
   }
 
   let horaAbertura = 9; // 9:00h
-  let horaFechamento = 18; // 18:00h
+  let horaFechamento = 23; // 18:00h
 
   if (dia === 'sexta') {
       horaFechamento = 18; // 18:00h na sexta-feira
