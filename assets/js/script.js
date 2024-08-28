@@ -1,7 +1,7 @@
-// ESTRUTURA PARA LOJA FECHADA //
+// ESTRUTURA PARA LOJA ABERTA OU FECHADA //
 const horarioAberto = {
-  segunda: [[6, 23]], // 8h às 18h
-  terca: [[8, 0]], // 8h às 18h
+  segunda: [[6, 18]], // 8h às 18h
+  terca: [[8, 18]], // 8h às 18h
   quarta: [[8, 18]], // 8h às 18h
   quinta: [[8, 18]], // 8h às 18h
   sexta: [[8, 18]] // 8h às 18h
@@ -15,6 +15,9 @@ function verificarHorario() {
 
   let dia = '';
   switch (diaSem) {
+      case 1:
+          dia = 'segunda';
+          break;
       case 2:
           dia = 'terca';
           break;
@@ -33,14 +36,13 @@ function verificarHorario() {
           return;
   }
 
-  let horaAbertura = 6; // 9:00h
-  let horaFechamento = 0; // 18:00h
+  const horaAbertura = horarioAberto[dia][0][0];
+  const horaFechamento = horarioAberto[dia][0][1];
 
-  if (dia === 'sexta') {
-      horaFechamento = 18; // 18:00h na sexta-feira
-  }
+  const currentTime = hora + (minuto / 60);
+  const isOpen = currentTime >= horaAbertura && currentTime < horaFechamento;
 
-  if (hora >= horaAbertura && hora < horaFechamento) {
+  if (isOpen) {
       document.getElementById('site-content').style.display = 'block';
       document.getElementById('loja-fechada').style.display = 'none';
   } else {
