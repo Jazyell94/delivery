@@ -1,32 +1,33 @@
 [
     {
-      "name": "Coca-cola",
-      "price": "R$ 5,50",
+      "name": "Coca-cola 250ml",
+      "price": "R$ 2,50",
       "image": "assets/image/fo.png",
-      "id": "1"
+      "id": "R250COCA"
     },
     {
-      "name": "Pastel de carne",
+      "name": "Fanta lar. 250ml",
+      "price": "R$ 2,00",
+      "image": "",
+      "id": "R250FL"
+    },
+    {
+      "name": "Fanta uva 250ml",
+      "price": "R$ 2,00",
+      "image": "",
+      "id": "R250FU"
+    },
+    {
+      "name": "Kuak 250ml",
       "price": "R$ 5,50",
       "image": "",
-      "id": "2"
+      "id": "R250K"
     },
     {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
+      "name": "Suco de caja 400ml",
+      "price": "R$ 7,00",
       "image": "",
-      "id": "3"
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": "",
-      "id": "4"
-    },
-    {
-      "name": "Bomba de carne",
-      "price": "R$ 5,50",
-      "image": ""
+      "id": "S400CAJA"
     },
     {
       "name": "Pastel de carne",

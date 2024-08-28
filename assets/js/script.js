@@ -204,7 +204,7 @@ function adicionarAoCarrinho(product) {
 let pastelContainer = document.getElementById('pastel-content');
 let pastel = [];
 
-fetch('/data/pastel.json')
+fetch('data/pastel.json')
   .then(response => response.json())
   .then(data => {
     pastel = data;
@@ -415,9 +415,20 @@ fetch('data/bebidas.json')
     renderBebidasProducts();
   });
 
-function renderBebidasProducts() {
+// Adicione um evento de escuta ao campo de busca
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const filteredBebidas = bebidas.filter((product) => {
+    return product.name.toLowerCase().includes(searchTerm);
+  });
+  renderBebidasProducts(filteredBebidas);
+});
+
+// Atualize a função renderBebidasProducts para aceitar um parâmetro de produtos filtrados
+function renderBebidasProducts(products = bebidas) {
   bebidasContainer.innerHTML = '';
-  bebidas.forEach((product, index) => {
+  products.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -440,7 +451,7 @@ function renderBebidasProducts() {
   const plusIcons = bebidasContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
     icon.addEventListener('click', () => {
-      const product = bebidas[icon.dataset.index];
+      const product = products[icon.dataset.index];
       adicionarAoCarrinho(product);
       alert('Produto adicionado ao carrinho!');
     });
@@ -608,7 +619,7 @@ function sendCartToWhatsApp(totalPrice) {
   });
 
   // Add the total price to the message
-  message += `_______________________________________________\n`;
+  message += `____________________________________________\n`;
   message += `*Total:* R$ ${totalPrice.toFixed(2)}\n`;
   message += `*Pagamento:* ${paymentMethod}`;
  
@@ -666,107 +677,3 @@ quantityButtons.forEach(button => {
 
 
 ///////////////////////////////////////////////////////////////////////////////
-
-const searchInput = document.getElementById('search-input');
-
-searchInput.addEventListener('input', (e) => {
-  const searchTerm = e.target.value.toLowerCase();
-  const products = [...defaultContainer.querySelectorAll('.product-container')].map((product) => {
-    return {
-      name: product.querySelector('.product-desc span').textContent,
-      image: product.querySelector('.product-img img').src,
-      price: product.querySelector('.price span').textContent,
-    };
-  });
-
-  const pastelProducts = [...pastelContainer.querySelectorAll('.product-container')].map((product) => {
-    return {
-      name: product.querySelector('.product-desc span').textContent,
-      image: product.querySelector('.product-img img').src,
-      price: product.querySelector('.price span').textContent,
-    };
-  });
-
-  const bombaProducts = [...bombaContainer.querySelectorAll('.product-container')].map((product) => {
-    return {
-      name: product.querySelector('.product-desc span').textContent,
-      image: product.querySelector('.product-img img').src,
-      price: product.querySelector('.price span').textContent,
-    };
-  });
-
-  const coxinhaProducts = [...coxinhaContainer.querySelectorAll('.product-container')].map((product) => {
-    return {
-      name: product.querySelector('.product-desc span').textContent,
-      image: product.querySelector('.product-img img').src,
-      price: product.querySelector('.price span').textContent,
-    };
-  });
-
-  const pizzaProducts = [...pizzaContainer.querySelectorAll('.product-container')].map((product) => {
-    return {
-      name: product.querySelector('.product-desc span').textContent,
-      image: product.querySelector('.product-img img').src,
-      price: product.querySelector('.price span').textContent,
-    };
-  });
-
-  const bebidasProducts = [...bebidasContainer.querySelectorAll('.product-container')].map((product) => {
-    return {
-      name: product.querySelector('.product-desc span').textContent,
-      image: product.querySelector('.product-img img').src,
-      price: product.querySelector('.price span').textContent,
-    };
-  });
-
-  const allProducts = [...products, ...pastelProducts, ...bombaProducts, ...coxinhaProducts, ...pizzaProducts, ...bebidasProducts];
-
-  const filteredProducts = allProducts.filter((product) => {
-    return product.name.toLowerCase().includes(searchTerm);
-  });
-
-  renderSearchResults(filteredProducts);
-});
-
-function renderSearchResults(products) {
-  const searchResultsContainer = document.getElementById('search-results');
-  const defaultContainers = [defaultContainer, pastelContainer, bombaContainer, coxinhaContainer, pizzaContainer, bebidasContainer];
-
-  // Hide the default content containers
-  defaultContainers.forEach((container) => {
-    container.style.display = 'none';
-  });
-
-  // Show the search results container
-  searchResultsContainer.style.display = 'block';
-
-  searchResultsContainer.innerHTML = '';
-
-  products.forEach((product) => {
-    const productHTML = `
-      <div class="product-container">
-        <div class="content">
-          <div class="product-img">
-            <img src="${product.image}" alt="">
-          </div>
-          <div class="product-desc">
-            <span>${product.name}</span>
-            <div class="price">
-              <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart" data-index="${products.indexOf(product)}"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    searchResultsContainer.insertAdjacentHTML('beforeend', productHTML);
-  });
-
-  const plusIcons = searchResultsContainer.querySelectorAll('.fa-plus');
-  plusIcons.forEach((icon) => {
-    icon.addEventListener('click', () => {
-      const product = products[icon.dataset.index];
-      adicionarAoCarrinho(product);
-    });
-  });
-}
