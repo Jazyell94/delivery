@@ -582,7 +582,7 @@ function sendCartToWhatsApp(totalPrice) {
 
   // Create a string to send to WhatsApp
   let message = `Meu pedido:\n`;
-  message += `*Nome:* ${customerAddress}\n`;
+  message += `*Nome:* ${customerName}\n`;
   message += `*Endereço:* ${customerAddress}\n`;
   message += `________________________________________`;
 
