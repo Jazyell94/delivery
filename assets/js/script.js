@@ -581,12 +581,13 @@ function sendCartToWhatsApp(totalPrice) {
   const customerAddress = customerAddressInput.value;
 
   // Create a string to send to WhatsApp
-  let message = `Olá! Eu sou ${customerName} e gostaria de fazer um pedido para entrega em\n`;
-  message += `Rua: ${customerAddress}\n`;
+   let message = `Novo pedido:\n`;
+  message += `**Nome:** ${customerAddress}\n`;
+  message += `**Endereço:** ${customerAddress}\n`;
 
   // Loop through the cart items and add them to the message
   cart.products.forEach(product => {
-    message += `Produto: ${product.name} x ${product.quantity} - R$ ${product.price}\n`;
+    message += `**Produto:** ${product.name} x ${product.quantity} - R$ ${product.price}\n`;
   });
 
   // Add the total price to the message
