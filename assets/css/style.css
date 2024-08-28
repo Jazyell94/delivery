@@ -24,6 +24,17 @@ body {
     padding: 0;
 }
 
+
+.loja-fechada {
+    border: 1px solid red;
+    margin: 0;
+    padding: 0;
+    height: 95vh;
+    
+}
+
+
+
 /* Header styles starts */
 .header .content .perfil {
     display: flex;
@@ -169,9 +180,11 @@ body {
     border: 1px solid #ccc;
     width: 90%;
     height: 6rem;
+    object-fit: cover;
 }
 .products .product-container .product-img img {
     width: 100%;
+    height: 100%;
 }
 .products .product-container .product-desc {
     display: flex;
@@ -309,6 +322,7 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 99999;
   }
   
   .overlay.show {
@@ -316,6 +330,12 @@ body {
   }
   
   .overlay-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    overflow: hidden;
     background-color: #fff;
     text-align: center;
     padding: 20px;
@@ -326,16 +346,48 @@ body {
   }
 
   .overlay-content input {
-    width: 90%;
+    width: 100%;
     height: 2rem;
     margin-top: 1rem;
+    padding-left: .5rem;
+    border: 1px solid #ccc;
+  }
+  .overlay-content input:active {
+    border-color: #f25b05;
+  }
+  .overlay-content p {
+    margin-top: 1rem;
+  }
+
+  .overlay-content select {
+    width: 100px;
+    height: 2rem;
+    margin-top: .5rem;
+    border: 1px solid #ccc;
   }
 
   .overlay-content button {
     background-color: #f25b05;
     color: #fff;
+    width: 100px;
     font-size: 1rem;
     margin-top: 1rem;
-    padding: .8rem;
+    padding: .5rem;
+    border-radius: 10px;
     border: none;
   }
+
+  .overlay-content i {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    padding: 1rem;
+    
+    color: #fff;
+    background-color: #f25b05;
+    -webkit-border-bottom-left-radius: 500px;
+    -moz-border-radius-bottomleft: 500px;
+    border-bottom-left-radius: 300px;
+}
+
+

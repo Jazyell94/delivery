@@ -153,7 +153,7 @@ const defaultContent = document.getElementById('default-content');
 let defaultContainer = document.getElementById('default-content');
 let products = [];
 
-fetch('data/default.json')
+fetch('/data/default.json')
   .then(response => response.json())
   .then(data => {
     products = data;
@@ -204,7 +204,7 @@ function adicionarAoCarrinho(product) {
 let pastelContainer = document.getElementById('pastel-content');
 let pastel = [];
 
-fetch('data/pastel.json')
+fetch('/data/pastel.json')
   .then(response => response.json())
   .then(data => {
     pastel = data;
@@ -255,7 +255,7 @@ function adicionarAoCarrinho(product) {
 let bombaContainer = document.getElementById('bomba-content');
 let bomba = [];
 
-fetch('data/bomba.json')
+fetch('/data/bomba.json')
   .then(response => response.json())
   .then(data => {
     bomba = data;
@@ -306,7 +306,7 @@ function adicionarAoCarrinho(product) {
 let coxinhaContainer = document.getElementById('coxinha-content');
 let coxinha = [];
 
-fetch('data/coxinha.json')
+fetch('/data/coxinha.json')
   .then(response => response.json())
   .then(data => {
     coxinha = data;
@@ -357,7 +357,7 @@ function adicionarAoCarrinho(product) {
 let pizzaContainer = document.getElementById('pizza-content');
 let pizza = [];
 
-fetch('data/pizza.json')
+fetch('/data/pizza.json')
   .then(response => response.json())
   .then(data => {
     pizza = data;
@@ -408,7 +408,7 @@ function adicionarAoCarrinho(product) {
 let bebidasContainer = document.getElementById('bebidas-content');
 let bebidas = [];
 
-fetch('data/bebidas.json')
+fetch('/data/bebidas.json')
   .then(response => response.json())
   .then(data => {
     bebidas = data;
@@ -560,7 +560,15 @@ function showCustomerDetailsForm(totalPrice) {
     <h2>Nome e Endereço</h2>
     <input id="customer-name" type="text" placeholder="Nome">
     <input id="customer-address" type="text" placeholder="Endereço">
+    <p>Forma de pagamento</p>
+    <select id="payment-method">
+      <option value="Dinheiro">Espécie</option>
+      <option value="Pix">Pix</option>
+      <option value="Cartão">Cartão</option>
+    </select>
     <button id="send-to-whatsapp">Enviar</button>
+    <i id="close-overlay" class="fa-solid fa-xmark"></i>
+    
   `;
 
   overlay.appendChild(overlayContent);
@@ -571,31 +579,45 @@ function showCustomerDetailsForm(totalPrice) {
   // Add event listener to the "Enviar para WhatsApp" button
   const sendToWhatsAppButton = overlayContent.querySelector('#send-to-whatsapp');
   sendToWhatsAppButton.addEventListener('click', () => sendCartToWhatsApp(totalPrice));
+
+  // Add event listener to the "Fechar" button
+  const closeOverlayButton = overlayContent.querySelector('#close-overlay');
+  closeOverlayButton.addEventListener('click', () => {
+    overlay.classList.remove('show');
+  });
 }
 
 function sendCartToWhatsApp(totalPrice) {
   const customerNameInput = document.getElementById('customer-name');
   const customerAddressInput = document.getElementById('customer-address');
+  const paymentMethodSelect = document.getElementById('payment-method');
 
-  const customerName = customerNameInput.value;
-  const customerAddress = customerAddressInput.value;
+  const customerName = encodeURIComponent(customerNameInput.value);
+  const customerAddress = encodeURIComponent(customerAddressInput.value);
+  const paymentMethod = paymentMethodSelect.value;
 
   // Create a string to send to WhatsApp
-  let message = `Meu pedido:\n`;
+  let message = `Meu pedido 😋\n\n`;
   message += `*Nome:* ${customerName}\n`;
   message += `*Endereço:* ${customerAddress}\n`;
-  message += `________________________________________`;
+  message += `*Produtos:*\n`;
 
   // Loop through the cart items and add them to the message
   cart.products.forEach(product => {
-    message += `${product.name} x ${product.quantity}\n`;
+    message += `  ${product.name} x ${product.quantity}\n`;
   });
 
   // Add the total price to the message
-  message += `*Total:* R$ ${totalPrice.toFixed(2)}`;
+  message += `_______________________________________________\n`;
+  message += `*Total:* R$ ${totalPrice.toFixed(2)}\n`;
+  message += `*Pagamento:* ${paymentMethod}`;
+ 
+
+  // Decode the message string to replace %20 with spaces
+  message = decodeURIComponent(message);
 
   // Open WhatsApp with the message
-  const whatsappUrl = `https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER&text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=5586999412880&text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, '_blank');
 
  
@@ -638,17 +660,113 @@ quantityButtons.forEach(button => {
   });
 });
 
-
-
-
-
 }
 
 ////////////////////////////////////////////////////////////////////////////
 
-// Adicionar evento de clique no botão "Finalizar"
 
+///////////////////////////////////////////////////////////////////////////////
 
-// Função para finalizar a compra e enviar informações para o WhatsApp
+const searchInput = document.getElementById('search-input');
 
+searchInput.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const products = [...defaultContainer.querySelectorAll('.product-container')].map((product) => {
+    return {
+      name: product.querySelector('.product-desc span').textContent,
+      image: product.querySelector('.product-img img').src,
+      price: product.querySelector('.price span').textContent,
+    };
+  });
 
+  const pastelProducts = [...pastelContainer.querySelectorAll('.product-container')].map((product) => {
+    return {
+      name: product.querySelector('.product-desc span').textContent,
+      image: product.querySelector('.product-img img').src,
+      price: product.querySelector('.price span').textContent,
+    };
+  });
+
+  const bombaProducts = [...bombaContainer.querySelectorAll('.product-container')].map((product) => {
+    return {
+      name: product.querySelector('.product-desc span').textContent,
+      image: product.querySelector('.product-img img').src,
+      price: product.querySelector('.price span').textContent,
+    };
+  });
+
+  const coxinhaProducts = [...coxinhaContainer.querySelectorAll('.product-container')].map((product) => {
+    return {
+      name: product.querySelector('.product-desc span').textContent,
+      image: product.querySelector('.product-img img').src,
+      price: product.querySelector('.price span').textContent,
+    };
+  });
+
+  const pizzaProducts = [...pizzaContainer.querySelectorAll('.product-container')].map((product) => {
+    return {
+      name: product.querySelector('.product-desc span').textContent,
+      image: product.querySelector('.product-img img').src,
+      price: product.querySelector('.price span').textContent,
+    };
+  });
+
+  const bebidasProducts = [...bebidasContainer.querySelectorAll('.product-container')].map((product) => {
+    return {
+      name: product.querySelector('.product-desc span').textContent,
+      image: product.querySelector('.product-img img').src,
+      price: product.querySelector('.price span').textContent,
+    };
+  });
+
+  const allProducts = [...products, ...pastelProducts, ...bombaProducts, ...coxinhaProducts, ...pizzaProducts, ...bebidasProducts];
+
+  const filteredProducts = allProducts.filter((product) => {
+    return product.name.toLowerCase().includes(searchTerm);
+  });
+
+  renderSearchResults(filteredProducts);
+});
+
+function renderSearchResults(products) {
+  const searchResultsContainer = document.getElementById('search-results');
+  const defaultContainers = [defaultContainer, pastelContainer, bombaContainer, coxinhaContainer, pizzaContainer, bebidasContainer];
+
+  // Hide the default content containers
+  defaultContainers.forEach((container) => {
+    container.style.display = 'none';
+  });
+
+  // Show the search results container
+  searchResultsContainer.style.display = 'block';
+
+  searchResultsContainer.innerHTML = '';
+
+  products.forEach((product) => {
+    const productHTML = `
+      <div class="product-container">
+        <div class="content">
+          <div class="product-img">
+            <img src="${product.image}" alt="">
+          </div>
+          <div class="product-desc">
+            <span>${product.name}</span>
+            <div class="price">
+              <span>${product.price}</span>
+              <i class="fa-solid fa-plus add-to-cart" data-index="${products.indexOf(product)}"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    searchResultsContainer.insertAdjacentHTML('beforeend', productHTML);
+  });
+
+  const plusIcons = searchResultsContainer.querySelectorAll('.fa-plus');
+  plusIcons.forEach((icon) => {
+    icon.addEventListener('click', () => {
+      const product = products[icon.dataset.index];
+      adicionarAoCarrinho(product);
+    });
+  });
+}
