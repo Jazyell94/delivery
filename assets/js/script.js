@@ -1,10 +1,9 @@
-// ESTRUTURA PARA LOJA ABERTA OU FECHADA //
 const horarioAberto = {
-  segunda: [[6, 18]], // 8h às 18h
-  terca: [[8, 18]], // 8h às 18h
-  quarta: [[8, 18]], // 8h às 18h
-  quinta: [[8, 18]], // 8h às 18h
-  sexta: [[8, 18]] // 8h às 18h
+  segunda: [[6, 18]], 
+  terca: [[8, 18]], 
+  quarta: [[8, 18]], 
+  quinta: [[6, 22]], // 6h às 13h
+  sexta: [[8, 18]] 
 };
 
 function verificarHorario() {
@@ -15,49 +14,145 @@ function verificarHorario() {
 
   let dia = '';
   switch (diaSem) {
-      case 1:
-          dia = 'segunda';
-          break;
-      case 2:
-          dia = 'terca';
-          break;
-      case 3:
-          dia = 'quarta';
-          break;
-      case 4:
-          dia = 'quinta';
-          break;
-      case 5:
-          dia = 'sexta';
-          break;
-      default:
-          document.getElementById('site-content').style.display = 'none';
-          document.getElementById('loja-fechada').style.display = 'block';
-          return;
-  }
-
-  const horaAbertura = horarioAberto[dia][0][0];
-  const horaFechamento = horarioAberto[dia][0][1];
-
-  const currentTime = hora + (minuto / 60);
-  const isOpen = currentTime >= horaAbertura && currentTime < horaFechamento;
-
-  if (isOpen) {
-      document.getElementById('site-content').style.display = 'block';
-      document.getElementById('loja-fechada').style.display = 'none';
-  } else {
+    case 1:
+      dia = 'segunda';
+      break;
+    case 2:
+      dia = 'terca';
+      break;
+    case 3:
+      dia = 'quarta';
+      break;
+    case 4:
+      dia = 'quinta';
+      break;
+    case 5:
+      dia = 'sexta';
+      break;
+    default:
       document.getElementById('site-content').style.display = 'none';
       document.getElementById('loja-fechada').style.display = 'block';
+      return;
+  }
+
+  const horarioDia = horarioAberto[dia];
+  let isOpen = false;
+
+  for (let i = 0; i < horarioDia.length; i++) {
+    const [horaAbertura, horaFechamento] = horarioDia[i];
+    const currentTime = hora + (minuto / 60); // Calcula a hora atual em formato decimal
+
+    console.log(`Hora atual: ${currentTime}, Horário de abertura: ${horaAbertura}, Horário de fechamento: ${horaFechamento}`); // Log para verificar horários
+
+    if (currentTime >= horaAbertura && currentTime < horaFechamento) {
+      isOpen = true;
+      break;
+    }
+  }
+
+  console.log(`Loja aberta: ${isOpen}`); // Verifica o estado final da loja
+
+  if (isOpen) {
+    document.getElementById('site-content').style.display = 'block';
+    document.getElementById('loja-fechada').style.display = 'none';
+  } else {
+    document.getElementById('site-content').style.display = 'none';
+    document.getElementById('loja-fechada').style.display = 'block';
   }
 }
 
-// Executa a função ao carregar a página
+// Chama a função para verificar o horário ao carregar a página
 window.onload = verificarHorario;
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-// ESTRUTURA PARA MUDAR A SECTION NO MENU //
+// ESTRUTURA PARA PRELOADER //
 
+// preloader.js
+const preloader = document.getElementById('preloader');
+
+document.body.classList.add('loading');
+
+let allResourcesLoaded = false;
+let saudacaoLoaded = false;
+
+window.addEventListener('load', () => {
+  allResourcesLoaded = true;
+  checkIfAllResourcesLoaded();
+});
+
+function checkIfAllResourcesLoaded() {
+  if (allResourcesLoaded && defaultContainer.innerHTML !== '') {
+    document.body.classList.remove('loading');
+    preloader.classList.add('hide');
+    preloader.addEventListener('transitionend', () => {
+      preloader.classList.remove('preloader');
+      // Adicione os eventos de clique após o preloader ser removido do DOM
+      const plusIcons = defaultContainer.querySelectorAll('.fa-plus');
+      plusIcons.forEach(icon => {
+        icon.addEventListener('click', () => {
+          const product = products[icon.dataset.index];
+          adicionarAoCarrinho(product);
+        });
+      });
+    });
+  }
+}
+/////////////////////////////////////////////////////////////////////////////////
+
+// ESTRUTURA PARA MUDAR ENTRE BOA TARDE E BOA NOITE //
+function saudacao(horaTransicao = 18) {
+  const agora = new Date();
+  const hora = agora.getHours();
+  if (hora < horaTransicao) {
+    return "Boa tarde! 🌞";
+  } else {
+    return "Boa noite! 🌚";
+  }
+}
+
+window.onload = function() {
+  const saudacaoElement = document.getElementById("saudacao");
+  if (saudacaoElement) {
+    saudacaoElement.innerHTML = saudacao(); // Exibe a saudação inicial
+    setInterval(function() {
+      saudacaoElement.innerHTML = saudacao();
+    }, 1000); // Atualiza a saudação a cada 1 segundo
+    
+    saudacaoLoaded = true; // Marca que a saudação foi carregada
+    checkIfAllResourcesLoaded(); // Verifica se todos os recursos foram carregados
+    changePlaceholder();
+  }
+};
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+function changePlaceholder() {
+  const placeholderElement = document.getElementById("search-input"); // Replace with your input field ID
+  if (placeholderElement) { // Add this check
+    const phrases = [
+      "Bomba de presunto",
+      "Coxinha",
+      "Pastel de queijo",
+      "Pizza de frango"
+    ];
+    let currentPhraseIndex = 0;
+
+    setInterval(function() {
+      placeholderElement.placeholder = phrases[currentPhraseIndex];
+      currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+    }, 3000); // Change placeholder every 2 seconds
+  } else {
+    console.log("Error: search-input element not found.");
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// ESTRUTURA PARA MUDAR A SECTION NO MENU //
 // Seleciona os botões
 const homeIcon = document.getElementById("home-icon");
 const cartIcon = document.getElementById("cart-icon");
@@ -158,7 +253,7 @@ fetch('data/default.json')
   .then(data => {
     products = data;
     renderDefaultProducts();
-  });
+});
 
 function renderDefaultProducts() {
   defaultContainer.innerHTML = '';
@@ -182,6 +277,10 @@ function renderDefaultProducts() {
     defaultContainer.insertAdjacentHTML('beforeend', productHTML);
   });
 
+  // Notifica o preloader que os recursos foram carregados
+  checkIfAllResourcesLoaded();
+
+
   const plusIcons = defaultContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
     icon.addEventListener('click', () => {
@@ -198,6 +297,27 @@ function adicionarAoCarrinho(product) {
     console.error("Produto não encontrado");
   }
 }
+
+function adicionarAoCarrinho(product) {
+  if (product) {
+    updateCart(product, 'add');
+  } else {
+    console.error("Produto não encontrado");
+  }
+}
+
+function imageLoaded() {
+  // Verifica se todas as imagens foram carregadas
+  const images = defaultContainer.querySelectorAll('img');
+  const allImagesLoaded = Array.prototype.every.call(images, function(image) {
+    return image.complete && image.naturalHeight !== 0;
+  });
+
+  if (allImagesLoaded) {
+    // Notifica o preloader que as imagens foram carregadas
+    checkIfAllResourcesLoaded();
+  }
+}
 //////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA PASTEL CONTAINER //
@@ -209,11 +329,20 @@ fetch('data/pastel.json')
   .then(data => {
     pastel = data;
     renderPastelProducts();
-  });
+});
 
-function renderPastelProducts() {
+const searchInputPastel = document.getElementById('search-input');
+searchInputPastel.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const filteredPastel = pastel.filter((product) => {
+    return product.name.toLowerCase().includes(searchTerm);
+  });
+  renderPastelProducts(filteredPastel);
+});
+
+function renderPastelProducts( products = pastel ) {
   pastelContainer.innerHTML = '';
-  pastel.forEach((product, index) => {
+  products.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -260,11 +389,20 @@ fetch('data/bomba.json')
   .then(data => {
     bomba = data;
     renderBombaProducts();
-  });
+});
 
-function renderBombaProducts() {
+const searchInputBomba = document.getElementById('search-input');
+searchInputBomba.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const filteredBomba = bomba.filter((product) => {
+    return product.name.toLowerCase().includes(searchTerm);
+  });
+  renderBombaProducts(filteredBomba);
+});
+
+function renderBombaProducts( products = bomba ) {
   bombaContainer.innerHTML = '';
-  bomba.forEach((product, index) => {
+  products.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -311,11 +449,20 @@ fetch('data/coxinha.json')
   .then(data => {
     coxinha = data;
     renderCoxinhaProducts();
-  });
+});
 
-function renderCoxinhaProducts() {
+const searchInputCoxinha = document.getElementById('search-input');
+searchInputCoxinha.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const filteredCoxinha = coxinha.filter((product) => {
+    return product.name.toLowerCase().includes(searchTerm);
+  });
+  renderCoxinhaProducts(filteredCoxinha);
+});
+
+function renderCoxinhaProducts( products = coxinha ) {
   coxinhaContainer.innerHTML = '';
-  coxinha.forEach((product, index) => {
+  products.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -362,11 +509,21 @@ fetch('data/pizza.json')
   .then(data => {
     pizza = data;
     renderPizzaProducts();
-  });
+});
 
-function renderPizzaProducts() {
+// Adicione um evento de escuta ao campo de busca
+const searchInputPizza = document.getElementById('search-input');
+searchInputPizza.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const filteredPizza = pizza.filter((product) => {
+    return product.name.toLowerCase().includes(searchTerm);
+  });
+  renderPizzaProducts(filteredPizza);
+});
+
+function renderPizzaProducts( products = pizza) {
   pizzaContainer.innerHTML = '';
-  pizza.forEach((product, index) => {
+  products.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
         <div class="content">
@@ -416,8 +573,8 @@ fetch('data/bebidas.json')
   });
 
 // Adicione um evento de escuta ao campo de busca
-const searchInput = document.getElementById('search-input');
-searchInput.addEventListener('input', (e) => {
+const searchInputBebidas = document.getElementById('search-input');
+searchInputBebidas.addEventListener('input', (e) => {
   const searchTerm = e.target.value.toLowerCase();
   const filteredBebidas = bebidas.filter((product) => {
     return product.name.toLowerCase().includes(searchTerm);
@@ -518,10 +675,21 @@ function renderCart() {
   const cartContainer = document.getElementById('cart-container');
   while (cartContainer.firstChild) cartContainer.removeChild(cartContainer.firstChild);
 
+  if (cart.products.length === 0) {
+    // Se o carrinho estiver vazio, exibe a mensagem de carrinho vazio
+    const emptyCartHTML = `
+      <div class="cart-vazio">
+        Seu carrinho está vazio!
+      </div>
+    `;
+    cartContainer.insertAdjacentHTML('beforeend', emptyCartHTML);
+    return; // Sai da função, pois não há mais itens para renderizar
+  }
+
   let totalPrice = 0;
   cart.products.forEach(product => {
-    const priceValue = product.price.replace('R$ ', '').replace(',', '.'); // extract numeric value from price string
-    const priceNumber = parseFloat(priceValue); // convert to number
+    const priceValue = product.price.replace('R$ ', '').replace(',', '.'); // extrai o valor numérico da string de preço
+    const priceNumber = parseFloat(priceValue); // converte para número
 
     const cartItemHTML = `
       <div class="cart-item">
@@ -529,7 +697,7 @@ function renderCart() {
           <img src="${product.image}" alt="${product.name}" />
         </div>
         <span>${product.name}</span>
-        <span>R$ ${priceNumber}</span>
+        <span>R$ ${priceNumber.toFixed(2)}</span>
         <div class="quantity-container">
           <i class="fa-solid fa-minus" data-product-id="${product.id}"></i>
           <span id="quantity-${product.id}">${product.quantity}</span>
@@ -542,22 +710,55 @@ function renderCart() {
   });
 
   const totalPriceHTML = `
-    <div class="cart-total">
-      Total: R$ ${totalPrice.toFixed(2)}
-      <div class="cart-finish">
-        Finalizar
-        <i class="fa-solid fa-chevron-right"></i>
+    <div class="total-container">
+      <div class="cart-total">
+        Total: R$ ${totalPrice.toFixed(2)}
+        <div class="cart-finish">
+          Finalizar
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
       </div>
     </div>
   `;
   cartContainer.insertAdjacentHTML('beforeend', totalPriceHTML);
 
+  // Adiciona event listeners aos ícones de "+" e "-"
+  const plusIcons = cartContainer.querySelectorAll('.fa-plus');
+  const minusIcons = cartContainer.querySelectorAll('.fa-minus');
 
-  
-  // Add event listener to the "Finalizar" button
+  plusIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const productId = icon.getAttribute('data-product-id');
+      const product = cart.products.find(p => p.id === productId);
+      product.quantity++;
+      renderCart(); // Re-renderiza o carrinho
+    });
+  });
+
+  minusIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const productId = icon.getAttribute('data-product-id');
+      const product = cart.products.find(p => p.id === productId);
+      if (product.quantity > 1) {
+        product.quantity--;
+      } else {
+        // Confirmação antes de remover o último item
+        const confirmRemoval = confirm(`Deseja realmente remover o último item de ${product.name} do carrinho?`);
+        if (confirmRemoval) {
+          // Remove o produto do carrinho se a quantidade for zero
+          cart.products = cart.products.filter(p => p.id !== productId);
+        }
+      }
+      renderCart(); // Re-renderiza o carrinho ou exibe a mensagem de carrinho vazio
+    });
+  });
+
+  // Adiciona event listener ao botão "Finalizar"
   const finishButton = cartContainer.querySelector('.cart-finish');
   finishButton.addEventListener('click', () => showCustomerDetailsForm(totalPrice));
 }
+
+
 
 // Update the showCustomerDetailsForm function
 function showCustomerDetailsForm(totalPrice) {
@@ -631,49 +832,8 @@ function sendCartToWhatsApp(totalPrice) {
   const whatsappUrl = `https://api.whatsapp.com/send?phone=5586999412880&text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, '_blank');
 
- 
-
-  // Selecione todos os botões de quantidade
-const quantityButtons = document.querySelectorAll('.quantity-container i');
-
-// Adicione um evento de clique em cada botão
-quantityButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    // Pegue o ID do produto
-    const productId = button.getAttribute('data-product-id');
-
-    // Pegue o produto correspondente no carrinho
-    const product = cart.products.find(p => p.id === productId);
-
-    // Pegue o elemento de quantidade
-    const quantityElement = document.getElementById(`quantity-${productId}`);
-
-    // Atualize a quantidade
-    if (button.classList.contains('fa-minus')) {
-      // Diminua a quantidade
-      if (product.quantity > 1) {
-        product.quantity -= 1;
-        quantityElement.textContent = product.quantity;
-      } else {
-        // Confirme antes de remover o produto do carrinho
-        if (confirm(`Tem certeza que deseja remover ${product.name} do carrinho?`)) {
-          updateCart(product, 'remove');
-        }
-      }
-    } else if (button.classList.contains('fa-plus')) {
-      // Aumente a quantidade
-      product.quantity += 1;
-      quantityElement.textContent = product.quantity;
-    }
-
-    // Atualize o preço total do carrinho
-    renderCart(); // Call renderCart to update the total price
-  });
-});
-
 }
 
 ////////////////////////////////////////////////////////////////////////////
 
 
-///////////////////////////////////////////////////////////////////////////////

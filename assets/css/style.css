@@ -14,6 +14,8 @@ section {
 body {
     background: #fff;
     font-family: "Mulish", sans-serif;
+    
+    
 }
 .heading {
     text-align: center;
@@ -22,6 +24,7 @@ body {
 
 .site-content {
     padding: 0;
+ 
 }
 
 
@@ -266,7 +269,10 @@ body {
 
 
 
-/*//////////////// CARRINHO //////////////////*/
+/*//////////////// e4 
+
+4
+ CARRINHO //////////////////*/
 .cart-vazio {
     height: 80vh;
     display: flex;
@@ -295,20 +301,27 @@ body {
     width: 100%;
     height: 100%;
 }
-.cart-total {
+.total-container {
+    width: 50%;
+    min-width: 250px;
+    max-width: 250px;
+    position: fixed;
+    bottom: 4rem;
+    right: 1rem;
+}
+.total-container .cart-total {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: absolute;
-    width: 90%;
+    flex-direction: row;
+    
+    
     border-radius: 10px;
-    left: 1rem;
-    bottom: 4rem;
+    
     padding: .5rem;
     color: #fff;
     background-color: #f25b05;
 }
-
 
 
 /* Add this to your CSS file */
@@ -334,7 +347,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-
+    max-width: 480px;
     overflow: hidden;
     background-color: #fff;
     text-align: center;
@@ -391,3 +404,68 @@ body {
 }
 
 
+
+
+
+
+#preloader {
+    /* ... */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8); /* cor de fundo branca com opacidade */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999; /* para garantir que o preloader esteja acima de todos os outros elementos */
+  }
+  
+  #preloader.hide {
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+  }
+
+
+  
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* garantir que o loader esteja na frente dos elementos da tela */
+  }
+  
+  .loader-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #f25b05; /* cor do círculo exterior */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loader-circle-inner {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff; /* cor do círculo interior */
+    animation: loader-circle-inner 2s infinite;
+  }
+  
+  @keyframes loader-circle-inner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
