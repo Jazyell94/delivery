@@ -469,3 +469,35 @@ body {
       transform: rotate(360deg);
     }
   }
+
+
+
+
+
+  .notificacao {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+  }
+  
+  .notificacao .fechar-notificacao {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .notificacao .fechar-notificacao:hover {
+    color: #ff6666;
+  }
+  

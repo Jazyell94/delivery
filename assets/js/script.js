@@ -283,11 +283,12 @@ function renderDefaultProducts() {
 
   const plusIcons = defaultContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      const product = products[icon.dataset.index];
-      adicionarAoCarrinho(product);
-    });
+  icon.addEventListener('click', () => {
+    const product = products[icon.dataset.index];
+    adicionarAoCarrinho(product);
+    mostrarNotificacao('Produto adicionado ao carrinho!');
   });
+});
 }
 
 function adicionarAoCarrinho(product) {
@@ -364,11 +365,12 @@ function renderPastelProducts( products = pastel ) {
 
   const plusIcons = pastelContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      const product = pastel[icon.dataset.index];
-      adicionarAoCarrinho(product);
-    });
+  icon.addEventListener('click', () => {
+    const product = products[icon.dataset.index];
+    adicionarAoCarrinho(product);
+    mostrarNotificacao('Produto adicionado ao carrinho!');
   });
+});
 }
 
 function adicionarAoCarrinho(product) {
@@ -424,11 +426,12 @@ function renderBombaProducts( products = bomba ) {
 
   const plusIcons = bombaContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      const product = bomba[icon.dataset.index];
-      adicionarAoCarrinho(product);
-    });
+  icon.addEventListener('click', () => {
+    const product = products[icon.dataset.index];
+    adicionarAoCarrinho(product);
+    mostrarNotificacao('Produto adicionado ao carrinho!');
   });
+});
 }
 
 function adicionarAoCarrinho(product) {
@@ -484,11 +487,12 @@ function renderCoxinhaProducts( products = coxinha ) {
 
   const plusIcons = coxinhaContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      const product = coxinha[icon.dataset.index];
-      adicionarAoCarrinho(product);
-    });
+  icon.addEventListener('click', () => {
+    const product = products[icon.dataset.index];
+    adicionarAoCarrinho(product);
+    mostrarNotificacao('Produto adicionado ao carrinho!');
   });
+});
 }
 
 function adicionarAoCarrinho(product) {
@@ -545,11 +549,12 @@ function renderPizzaProducts( products = pizza) {
 
   const plusIcons = pizzaContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      const product = pizza[icon.dataset.index];
-      adicionarAoCarrinho(product);
-    });
+  icon.addEventListener('click', () => {
+    const product = products[icon.dataset.index];
+    adicionarAoCarrinho(product);
+    mostrarNotificacao('Produto adicionado ao carrinho!');
   });
+});
 }
 
 function adicionarAoCarrinho(product) {
@@ -605,15 +610,18 @@ function renderBebidasProducts(products = bebidas) {
     bebidasContainer.insertAdjacentHTML('beforeend', productHTML);
   });
 
+
   const plusIcons = bebidasContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      const product = products[icon.dataset.index];
-      adicionarAoCarrinho(product);
-      alert('Produto adicionado ao carrinho!');
-    });
+  icon.addEventListener('click', () => {
+    const product = products[icon.dataset.index];
+    adicionarAoCarrinho(product);
+    mostrarNotificacao('Produto adicionado ao carrinho!');
   });
+});
+
 }
+
 
 function adicionarAoCarrinho(product) {
   if (product) {
@@ -622,6 +630,7 @@ function adicionarAoCarrinho(product) {
     console.error("Produto não encontrado");
   }
 }
+
 ///////////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA O CARRINHO //
@@ -836,4 +845,35 @@ function sendCartToWhatsApp(totalPrice) {
 
 ////////////////////////////////////////////////////////////////////////////
 
+// FUNÇÃO PARA MOSTRAR NOTIFICAÇÃO AO ADCIONAR AO CARRINHO //
+function mostrarNotificacao(mensagem) {
+  // Crie a div da notificação
+  const notificacao = document.createElement('div');
+  notificacao.classList.add('notificacao');
+  
+  // Crie o conteúdo da notificação
+  const conteudo = document.createElement('span');
+  conteudo.textContent = mensagem;
+  
+  // Crie o botão de fechar
+  const botaoFechar = document.createElement('button');
+  botaoFechar.textContent = 'X';
+  botaoFechar.classList.add('fechar-notificacao');
+  botaoFechar.addEventListener('click', () => {
+    notificacao.remove();
+  });
+  
+  // Adicione o conteúdo e o botão ao elemento de notificação
+  notificacao.appendChild(conteudo);
+  notificacao.appendChild(botaoFechar);
+  
+  // Adicione a notificação ao body (ou outro contêiner adequado)
+  document.body.appendChild(notificacao);
+  
+  // Remova a notificação após alguns segundos
+  setTimeout(() => {
+    notificacao.remove();
+  }, 5000); // 5000 ms = 5 segundos
+}
 
+/////////////////////////////////////////////////////////////////////////
