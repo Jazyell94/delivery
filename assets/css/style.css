@@ -198,7 +198,7 @@ body {
     background: #ccc;
     border: 1px solid #ccc;
     width: 90%;
-    height: 6rem;
+    height: 10rem;
     object-fit: cover;
 }
 .products .product-container .product-img img {

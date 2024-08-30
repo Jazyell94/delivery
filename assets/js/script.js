@@ -2,49 +2,69 @@ function verificaHorarioDeFuncionamento() {
   const agora = new Date();
   const diaDaSemana = agora.getDay(); // 0 = Domingo, 1 = Segunda-feira, ..., 6 = Sábado
   const horaAtual = agora.getHours();
+  const minutoAtual = agora.getMinutes();
 
   let horaDeAbertura;
+  let minutoDeAbertura;
   let horaDeFechamento;
+  let minutoDeFechamento;
 
   // Defina os horários de abertura e fechamento para cada dia da semana
   switch(diaDaSemana) {
       case 0: // Domingo
-          horaDeAbertura = 10; // 10:00 AM
-          horaDeFechamento = 16; // 16:00 PM
+          horaDeAbertura = 10;
+          minutoDeAbertura = 0;
+          horaDeFechamento = 16;
+          minutoDeFechamento = 0;
           break;
       case 1: // Segunda-feira
-          horaDeAbertura = 9; // 09:00 AM
-          horaDeFechamento = 18; // 18:00 PM
+          horaDeAbertura = 9;
+          minutoDeAbertura = 30; // Abre às 9:30
+          horaDeFechamento = 18;
+          minutoDeFechamento = 0;
           break;
       case 2: // Terça-feira
-          horaDeAbertura = 9;  // 09:00 AM
-          horaDeFechamento = 18; // 18:00 PM
+          horaDeAbertura = 9;
+          minutoDeAbertura = 30; // Abre às 9:30
+          horaDeFechamento = 18;
+          minutoDeFechamento = 0;
           break;
       case 3: // Quarta-feira
-          horaDeAbertura = 9;  // 09:00 AM
-          horaDeFechamento = 18; // 18:00 PM
+          horaDeAbertura = 9;
+          minutoDeAbertura = 30; // Abre às 9:30
+          horaDeFechamento = 18;
+          minutoDeFechamento = 0;
           break;
       case 4: // Quinta-feira
-          horaDeAbertura = 9; // 09:00 AM
-          horaDeFechamento = 18; // 18:00 PM
+          horaDeAbertura = 9;
+          minutoDeAbertura = 30; // Abre às 9:30
+          horaDeFechamento = 18;
+          minutoDeFechamento = 0;
           break;
       case 5: // Sexta-feira
-          horaDeAbertura = 89; // 09:00 AM
-          horaDeFechamento = 20; // 18:00 PM
+          horaDeAbertura = 10;
+          minutoDeAbertura = 35; 
+          horaDeFechamento = 20;
+          minutoDeFechamento = 0;
           break;
       case 6: // Sábado
-          horaDeAbertura = 10; // 10:00 AM
-          horaDeFechamento = 16; // 16:00 PM
+          horaDeAbertura = 10;
+          minutoDeAbertura = 0;
+          horaDeFechamento = 16;
+          minutoDeFechamento = 0;
           break;
       default:
           horaDeAbertura = 9;
+          minutoDeAbertura = 30;
           horaDeFechamento = 18;
+          minutoDeFechamento = 0;
   }
 
   const overlay = document.getElementById('loja-fechada');
   const siteContent = document.getElementById('site-content');
 
-  if (horaAtual < horaDeAbertura || horaAtual >= horaDeFechamento) {
+  if (horaAtual < horaDeAbertura || (horaAtual === horaDeAbertura && minutoAtual < minutoDeAbertura) ||
+      horaAtual > horaDeFechamento || (horaAtual === horaDeFechamento && minutoAtual >= minutoDeFechamento)) {
       overlay.style.display = 'flex';
       siteContent.style.display = 'none';
   } else {
@@ -53,7 +73,10 @@ function verificaHorarioDeFuncionamento() {
   }
 }
 
-// Chame a função ao carregar a página
+// Verifica o horário a cada minuto (60000 milissegundos)
+setInterval(verificaHorarioDeFuncionamento, 60000);
+
+// Verifica o horário ao carregar a página
 verificaHorarioDeFuncionamento();
 
 ///////////////////////////////////////////////////////////////////////////////////

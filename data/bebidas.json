@@ -1,20 +1,20 @@
 [
     {
-      "name": "Coca-cola 250ml",
+      "name": "Coca-cola 350ml",
       "price": "R$ 2,50",
-      "image": "assets/image/fo.png",
-      "id": "R250COCA"
+      "image": "assets/image/refrigerantes/coca-cola-350.png",
+      "id": "cocaCola1"
     },
     {
-      "name": "Fanta lar. 250ml",
+      "name": "Coca-cola ",
       "price": "R$ 2,00",
-      "image": "",
-      "id": "R250FL"
+      "image": "assets/image/refrigerantes/coca-cola-sem-a-350.webp",
+      "id": "cocaCola2"
     },
     {
-      "name": "Fanta uva 250ml",
+      "name": "Fanta uva 350ml",
       "price": "R$ 2,00",
-      "image": "",
+      "image": "assets/image/refrigerantes/fanta-uva-350.webp",
       "id": "R250FU"
     },
     {
