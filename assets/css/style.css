@@ -29,13 +29,29 @@ body {
 
 
 .loja-fechada {
-    border: 1px solid red;
     margin: 0;
     padding: 0;
     height: 95vh;
-    
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
-
+.loja-fechada .animacao {
+    margin-top: 2rem;
+    width: 100%;
+    height: 300px;
+    bottom: 10rem;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}
+.loja-fechada .animacao dotlottie-player {
+    width: 100%; 
+    height: 300px;
+}
 
 
 /* Header styles starts */
