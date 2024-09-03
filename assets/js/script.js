@@ -879,7 +879,7 @@ function showCustomerDetailsForm(totalPrice) {
     <h2>Nome e Endereço</h2>
     <input id="customer-name" type="text" placeholder="Nome">
     <input id="customer-address" type="text" placeholder="Endereço">
-    <p>Forma de pagamento</p>
+    <p>Forma de pagamento:</p>
     <select id="payment-method">
       <option value="Dinheiro">Espécie</option>
       <option value="Pix">Pix</option>
