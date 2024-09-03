@@ -2,56 +2,59 @@
     {
       "name": "Coca-cola 350ml",
       "price": "R$ 2,50",
-      "image": "assets/image/refrigerantes/coca-cola-350.png",
-      "id": "cocaCola1"
+      "image": "assets/image/bebidas/coca-cola-lata.jpg",
+      "id": "cocaColaLata"
     },
     {
-      "name": "Coca-cola ",
+      "name": "Coca-cola zero 350ml ",
       "price": "R$ 2,00",
-      "image": "assets/image/refrigerantes/coca-cola-sem-a-350.webp",
-      "id": "cocaCola2"
+      "image": "assets/image/bebidas/coca-cola-lata-zero.webp",
+      "id": "cocaColaLataZero"
     },
     {
       "name": "Fanta uva 350ml",
       "price": "R$ 2,00",
-      "image": "assets/image/refrigerantes/fanta-uva-350.webp",
-      "id": "R250FU"
+      "image": "assets/image/bebidas/fanta-uva.webp",
+      "id": "fantaUvaLata"
     },
     {
-      "name": "Kuak 250ml",
+      "name": "Fanta laranja 350ml",
       "price": "R$ 5,50",
-      "image": "",
-      "id": "R250K"
+      "image": "assets/image/bebidas/fanta-laranja.webp",
+      "id": "fantaLaranjaLata"
     },
     {
-      "name": "Suco de caja 400ml",
+      "name": "Fanta guaraná 350ml",
       "price": "R$ 7,00",
-      "image": "",
-      "id": "S400CAJA"
+      "image": "assets/image/bebidas/fanta-guarana.webp",
+      "id": "fantaGuaranaLata"
     },
     {
-      "name": "Pastel de carne",
+      "name": "Fanta maracujá",
       "price": "R$ 5,50",
-      "image": ""
+      "image": "assets/image/bebidas/fanta-maracuja.webp",
+      "id": "fataMaracujaLata"
     },
     {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
+      "name": "Fanta guarana pet 200ml",
+      "price": "R$ 2,00",
+      "image": "assets/image/bebidas/fanta-guarana-pet.webp",
+      "id": "fantaGuaranaPet200ml"
     },
     {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
+      "name": "Fanta uva pet 200ml",
+      "price": "R$ 2,00",
+      "image": "assets/image/bebidas/fanta-uva-pet.webp"
     },
     {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
+      "name": "Coca-cola pet 200ml",
+      "price": "R$ 2,00",
+      "image": "assets/image/bebidas/coca-cola-pet.webp",
+      "id": "cocaColaPet200ml"
     },
     {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
+      "name": "Coca-cola pet 2l",
+      "price": "R$ 12,00",
+      "image": "assets/image/bebidas/coca-cola-pet-2l.webp"
     }
 ]

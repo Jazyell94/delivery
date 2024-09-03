@@ -1,52 +1,26 @@
 [
     {
-      "name": "Pastel de frango",
+      "name": "Frango",
+      "price": "R$ 4,00",
+      "image": "assets/image/pastel/pastel-frango.jpg",
+      "id": "pastelFrango"
+    },
+    {
+      "name": "Frango catupiry",
+      "price": "R$ 4,00",
+      "image": "assets/image/pastel/pastel-frango-catupiry.jpg",
+      "id": "pastelFrangoCatupiry"
+    },
+    {
+      "name": "Queijo",
       "price": "R$ 5,50",
-      "image": ""
+      "image": "assets/image/pastel/pastel-queijo.jpg",
+      "id": "pastelQueijo"
     },
     {
       "name": "Pastel de carne",
       "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
+      "image": "assets/image/pastel/pastel-carne.jpg",
+      "id": "pastelCarne"
     }
   ]

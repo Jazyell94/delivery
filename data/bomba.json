@@ -1,52 +1,14 @@
 [
     {
-      "name": "Bomba",
+      "name": "Carne",
       "price": "R$ 5,50",
-      "image": ""
+      "image": "assets/image/bomba/bomba-carne.jpg",
+      "id": "bombaCarne"
     },
     {
-      "name": "Pastel de carne",
+      "name": "Presunto",
       "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Bomba de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": ""
+      "image": "assets/image/bomba/bomba-presunto.webp",
+      "id": "bombaPresunto"
     }
   ]

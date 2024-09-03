@@ -1,63 +1,38 @@
 [
     {
-      "name": "Default",
+      "name": "Frango catupiry",
       "price": "R$ 5,50",
-      "image": "assets/image/fo.png",
-      "id": "1"
+      "image": "assets/image/coxinha/coxinha-frango-catupiry.jpg",
+      "id": "coxinhaFrangoCatupiry"
     },
     {
-      "name": "Pastel de carne",
+      "name": "Presunto",
       "price": "R$ 5,50",
-      "image": "",
-      "id": "2"
+      "image": "assets/image/bomba/bomba-presunto.webp",
+      "id": "bombaPresunto"
     },
     {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": "",
-      "id": "3"
+      "name": "Frango",
+      "price": "R$ 4,00",
+      "image": "assets/image/pastel/pastel-frango.jpg",
+      "id": "pastelFrango"
     },
     {
-      "name": "Pastel de carne",
+      "name": "Carne",
       "price": "R$ 5,50",
-      "image": ""
-      ,
-      "id": "4"
+      "image": "assets/image/esfiha/esfiha-carne.webp",
+      "id": "esfihaCarne"
     },
     {
-      "name": "Pastel de carne",
+      "name": "Queijo",
       "price": "R$ 5,50",
-      "image": "",
-      "id": "5"
+      "image": "assets/image/pastel/pastel-queijo.jpg",
+      "id": "pastelQueijo"
     },
     {
-      "name": "Pastel de carne",
+      "name": "Frango",
       "price": "R$ 5,50",
-      "image": "",
-      "id": "6"
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": "",
-      "id": "7"
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": "",
-      "id": "8"
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": "",
-      "id": "9"
-    },
-    {
-      "name": "Pastel de carne",
-      "price": "R$ 5,50",
-      "image": "",
-      "id": "10"
+      "image": "assets/image/coxinha/coxinha-frango.webp",
+      "id": "coxinhaFrango"
     }
   ]

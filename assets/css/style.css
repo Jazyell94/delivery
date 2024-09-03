@@ -14,8 +14,6 @@ section {
 body {
     background: #fff;
     font-family: "Mulish", sans-serif;
-    
-    
 }
 .heading {
     text-align: center;
@@ -24,7 +22,6 @@ body {
 
 .site-content {
     padding: 0;
- 
 }
 
 
@@ -161,7 +158,6 @@ body {
     display: block;
     padding: 10px;
     background-color: #f0f0f0;
-    border: 1px solid #ccc;
   }
 
   /* ... */
@@ -178,7 +174,7 @@ body {
 .products #bomba-content,
 .products #pastel-content,
 .products #coxinha-content,
-.products #pizza-content, 
+.products #esfiha-content, 
 .products #bebidas-content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -191,8 +187,8 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    border: 1px solid #ccc;
     border-radius: 5px;
+    box-shadow: #ccc 1px 1px 10px;
 }
 .products .product-container .product-img {
     background: #ccc;
@@ -217,7 +213,7 @@ body {
     justify-content: space-between;
 }
 .products .product-container .product-desc .price i {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     padding: 4px;
     border-radius: 50%;
     color: #fff;

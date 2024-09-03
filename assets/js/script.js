@@ -151,7 +151,7 @@ function changePlaceholder() {
       "Bomba de presunto",
       "Coxinha",
       "Pastel de queijo",
-      "Pizza de frango"
+      "Esfiha de frango"
     ];
     let currentPhraseIndex = 0;
 
@@ -519,29 +519,29 @@ function adicionarAoCarrinho(product) {
 }
 /////////////////////////////////////////////////////////////////////////
 
-// ESTRUTURA PARA PIZZA CONTAINER //
-let pizzaContainer = document.getElementById('pizza-content');
-let pizza = [];
+// ESTRUTURA PARA ESFIHA CONTAINER //
+let esfihaContainer = document.getElementById('esfiha-content');
+let esfiha = [];
 
-fetch('data/pizza.json')
+fetch('data/esfiha.json')
   .then(response => response.json())
   .then(data => {
-    pizza = data;
-    renderPizzaProducts();
+    esfiha = data;
+    renderEsfihaProducts();
 });
 
 // Adicione um evento de escuta ao campo de busca
-const searchInputPizza = document.getElementById('search-input');
-searchInputPizza.addEventListener('input', (e) => {
+const searchInputEsfiha = document.getElementById('search-input');
+searchInputEsfiha.addEventListener('input', (e) => {
   const searchTerm = e.target.value.toLowerCase();
-  const filteredPizza = pizza.filter((product) => {
+  const filteredEsfiha = esfiha.filter((product) => {
     return product.name.toLowerCase().includes(searchTerm);
   });
-  renderPizzaProducts(filteredPizza);
+  renderEsfihaProducts(filteredEsfiha);
 });
 
-function renderPizzaProducts( products = pizza) {
-  pizzaContainer.innerHTML = '';
+function renderEsfihaProducts( products = esfiha) {
+  esfihaContainer.innerHTML = '';
   products.forEach((product, index) => {
     const productHTML = `
       <div class="product-container">
@@ -559,10 +559,10 @@ function renderPizzaProducts( products = pizza) {
         </div>
       </div>
     `;
-    pizzaContainer.insertAdjacentHTML('beforeend', productHTML);
+    esfihaContainer.insertAdjacentHTML('beforeend', productHTML);
   });
 
-  const plusIcons = pizzaContainer.querySelectorAll('.fa-plus');
+  const plusIcons = esfihaContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
   icon.addEventListener('click', () => {
     const product = products[icon.dataset.index];

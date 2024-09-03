@@ -1,0 +1,14 @@
+[
+    {
+      "name": "Frango",
+      "price": "R$ 5,50",
+      "image": "assets/image/esfiha/esfiha-frango.jpg",
+      "id": "esfihaFrango"
+    },
+    {
+      "name": "Carne",
+      "price": "R$ 5,50",
+      "image": "assets/image/esfiha/esfiha-carne.webp",
+      "id": "esfihaCarne"
+    }
+  ]
