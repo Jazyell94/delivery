@@ -1,36 +1,36 @@
 [
     {
-      "name": "Frango catupiry",
+      "name": "Coxinha F. Catupiry",
       "price": "R$ 5,50",
       "image": "assets/image/coxinha/coxinha-frango-catupiry.jpg",
       "id": "coxinhaFrangoCatupiry"
     },
     {
-      "name": "Presunto",
+      "name": "Bomba de Presunto",
       "price": "R$ 5,50",
       "image": "assets/image/bomba/bomba-presunto.webp",
       "id": "bombaPresunto"
     },
     {
-      "name": "Frango",
+      "name": "Pastel de Frango",
       "price": "R$ 4,00",
       "image": "assets/image/pastel/pastel-frango.jpg",
       "id": "pastelFrango"
     },
     {
-      "name": "Carne",
+      "name": "Esfiha de Carne",
       "price": "R$ 5,50",
       "image": "assets/image/esfiha/esfiha-carne.webp",
       "id": "esfihaCarne"
     },
     {
-      "name": "Queijo",
+      "name": "Pastel de Queijo",
       "price": "R$ 5,50",
       "image": "assets/image/pastel/pastel-queijo.jpg",
       "id": "pastelQueijo"
     },
     {
-      "name": "Frango",
+      "name": "Coxinha de Frango",
       "price": "R$ 5,50",
       "image": "assets/image/coxinha/coxinha-frango.webp",
       "id": "coxinhaFrango"
