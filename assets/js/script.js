@@ -1,3 +1,4 @@
+// ESTRUTURA PARA FECHAR E ABIR A LOJA //
 function verificaHorarioDeFuncionamento() {
   const agora = new Date();
   const diaDaSemana = agora.getDay(); // 0 = Domingo, 1 = Segunda-feira, ..., 6 = Sábado
@@ -14,49 +15,49 @@ function verificaHorarioDeFuncionamento() {
       case 0: // Domingo
           horaDeAbertura = 10;
           minutoDeAbertura = 0;
-          horaDeFechamento = 16;
+          horaDeFechamento = 21;
           minutoDeFechamento = 0;
           break;
       case 1: // Segunda-feira
-          horaDeAbertura = 9;
+          horaDeAbertura = 14;
           minutoDeAbertura = 30; // Abre às 9:30
-          horaDeFechamento = 18;
+          horaDeFechamento = 22;
           minutoDeFechamento = 0;
           break;
       case 2: // Terça-feira
-          horaDeAbertura = 7;
+          horaDeAbertura = 14;
           minutoDeAbertura = 30; // Abre às 9:30
-          horaDeFechamento = 18;
+          horaDeFechamento = 22;
           minutoDeFechamento = 0;
           break;
       case 3: // Quarta-feira
-          horaDeAbertura = 9;
+          horaDeAbertura = 14;
           minutoDeAbertura = 30; // Abre às 9:30
-          horaDeFechamento = 18;
+          horaDeFechamento = 22;
           minutoDeFechamento = 0;
           break;
       case 4: // Quinta-feira
-          horaDeAbertura = 9;
+          horaDeAbertura = 14;
           minutoDeAbertura = 30; // Abre às 9:30
-          horaDeFechamento = 18;
+          horaDeFechamento = 22;
           minutoDeFechamento = 0;
           break;
       case 5: // Sexta-feira
-          horaDeAbertura = 10;
-          minutoDeAbertura = 35; 
-          horaDeFechamento = 20;
+          horaDeAbertura = 14;
+          minutoDeAbertura = 30; 
+          horaDeFechamento = 18;
           minutoDeFechamento = 0;
           break;
       case 6: // Sábado
-          horaDeAbertura = 10;
+          horaDeAbertura = 18;
           minutoDeAbertura = 0;
-          horaDeFechamento = 16;
+          horaDeFechamento = 23;
           minutoDeFechamento = 0;
           break;
       default:
-          horaDeAbertura = 9;
+          horaDeAbertura = 14;
           minutoDeAbertura = 30;
-          horaDeFechamento = 18;
+          horaDeFechamento = 22;
           minutoDeFechamento = 0;
   }
 
@@ -82,8 +83,6 @@ verificaHorarioDeFuncionamento();
 ///////////////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA PRELOADER //
-
-// preloader.js
 const preloader = document.getElementById('preloader');
 
 document.body.classList.add('loading');
@@ -142,8 +141,7 @@ window.onload = function() {
 
 //////////////////////////////////////////////////////////////////////////////////
 
-
-
+// ESTRUTURA PARA O PLACEHOLDER MUDAR SOZINHO //
 function changePlaceholder() {
   const placeholderElement = document.getElementById("search-input"); // Replace with your input field ID
   if (placeholderElement) { // Add this check
@@ -151,7 +149,8 @@ function changePlaceholder() {
       "Bomba de presunto",
       "Coxinha",
       "Pastel de queijo",
-      "Esfiha de frango"
+      "Esfiha de frango",
+      "Coca-cola 2l"
     ];
     let currentPhraseIndex = 0;
 
@@ -163,7 +162,6 @@ function changePlaceholder() {
     console.log("Error: search-input element not found.");
   }
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////
 
