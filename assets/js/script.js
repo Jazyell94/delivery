@@ -24,7 +24,7 @@ function verificaHorarioDeFuncionamento() {
           minutoDeFechamento = 0;
           break;
       case 2: // Terça-feira
-          horaDeAbertura = 9;
+          horaDeAbertura = 7;
           minutoDeAbertura = 30; // Abre às 9:30
           horaDeFechamento = 18;
           minutoDeFechamento = 0;
@@ -763,19 +763,104 @@ function renderCart() {
     icon.addEventListener('click', () => {
       const productId = icon.getAttribute('data-product-id');
       const product = cart.products.find(p => p.id === productId);
+  
       if (product.quantity > 1) {
         product.quantity--;
+        renderCart(); // Atualiza o carrinho com a nova quantidade
       } else {
-        // Confirmação antes de remover o último item
-        const confirmRemoval = confirm(`Deseja realmente remover o último item de ${product.name} do carrinho?`);
-        if (confirmRemoval) {
-          // Remove o produto do carrinho se a quantidade for zero
+        // Cria o overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        console.log('Overlay criado:', overlay);
+  
+        // Cria a div de confirmação
+        const confirmRemodal = document.createElement('div');
+        confirmRemodal.className = 'confirm-remodal';
+  
+        // Cria a div interna para o texto
+        const confirmContentText = document.createElement('div');
+        confirmContentText.className = 'confirm-content-text';
+  
+        // Adiciona o texto à div interna
+        const message = document.createElement('p');
+        message.textContent = 'Remover produto do carrinho?';
+        confirmContentText.appendChild(message);
+  
+        // Cria a div interna para os botões
+        const confirmContentButtons = document.createElement('div');
+        confirmContentButtons.className = 'confirm-content-buttons';
+  
+        // Cria o botão "Sim"
+        const yesButton = document.createElement('button');
+        yesButton.textContent = 'Sim';
+        yesButton.className = 'yes-button';
+        yesButton.addEventListener('click', () => {
+          // Remove o produto do carrinho se o usuário confirmar
           cart.products = cart.products.filter(p => p.id !== productId);
-        }
+          renderCart(); // Atualiza o carrinho após remoção
+  
+          // Cria e exibe a notificação
+          const notification = document.createElement('div');
+          notification.textContent = 'Produto removido do carrinho!';
+          notification.className = 'notificacao';
+  
+          // Cria e adiciona o botão "X" à notificação
+          const closeButton = document.createElement('button');
+          closeButton.textContent = 'X'; // Caracter para o "X"
+          closeButton.className = 'fechar-notificacao';
+          closeButton.addEventListener('click', () => {
+            notification.remove(); // Remove a notificação quando o botão "X" é clicado
+          });
+  
+          notification.appendChild(closeButton);
+          document.body.appendChild(notification);
+  
+          // Remove a notificação após 3 segundos, se não for fechada pelo usuário
+          setTimeout(() => {
+            if (notification) { // Verifica se a notificação ainda está presente
+              notification.remove();
+            }
+          }, 3000);
+  
+          // Remove o modal de confirmação e o overlay
+          confirmRemodal.remove();
+          overlay.remove();
+        });
+  
+        // Cria o botão "Não"
+        const noButton = document.createElement('button');
+        noButton.textContent = 'Não';
+        noButton.className = 'no-button'; // Adiciona a classe para estilo
+        noButton.addEventListener('click', () => {
+          // Remove o modal de confirmação e o overlay
+          confirmRemodal.remove();
+          overlay.remove();
+        });
+  
+        confirmContentButtons.appendChild(yesButton);
+        confirmContentButtons.appendChild(noButton);
+  
+        confirmRemodal.appendChild(confirmContentText);
+        confirmRemodal.appendChild(confirmContentButtons);
+  
+        // Adiciona o modal de confirmação à página
+        document.body.appendChild(confirmRemodal);
+  
+        // Adiciona o overlay ao DOM e verifica se foi adicionado
+        document.body.appendChild(overlay);
+        console.log('Overlay adicionado ao DOM');
+        overlay.classList.add('show'); // Garante que o overlay será exibido
       }
-      renderCart(); // Re-renderiza o carrinho ou exibe a mensagem de carrinho vazio
     });
   });
+  
+  
+  
+  
+  
+  
+  
+  
 
   // Adiciona event listener ao botão "Finalizar"
   const finishButton = cartContainer.querySelector('.cart-finish');

@@ -196,7 +196,6 @@ body {
 }
 .products .product-container .product-img {
     background: #ccc;
-    border: 1px solid #ccc;
     width: 90%;
     height: 10rem;
     object-fit: cover;
@@ -309,7 +308,6 @@ body {
     height: 50px;
     object-fit: cover;
     background-color: #a1a1a1;
-    border: 1px solid #ccc;
 }
 .cart-item .product-image img {
     font-size: .7rem;
@@ -351,7 +349,7 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 99999;
+    z-index: 9999;
   }
   
   .overlay.show {
@@ -513,7 +511,44 @@ body {
     cursor: pointer;
   }
   
-  .notificacao .fechar-notificacao:hover {
-    color: #ff6666;
+ 
+
+
+     /* Estilo para a div de confirmação */
+    /* Estilo para a div de confirmação */
+.confirm-remodal {
+    position: fixed; /* Fixa o modal no centro da tela */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza o modal na tela */
+    background-color: #fff; /* Cor de fundo branca */
+    color: #333; /* Cor do texto */
+    padding: 20px;
+    border-radius: 8px; /* Cantos arredondados */
+    border: 1px solid #ccc;
+    z-index: 1000; /* Garante que o modal fique acima do overlay */
+    max-width: 90%; /* Largura máxima */
+    width: 400px; /* Largura fixa */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 99999;
   }
   
+
+
+
+
+      
+      .confirm-remodal button {
+        margin: 10px 5px;
+        padding: 5px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #f25b05;
+        color: #fff;
+        font-size: 14px;
+      }
+    
