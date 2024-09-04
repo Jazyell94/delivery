@@ -1,12 +1,12 @@
 [
     {
-      "name": "Carne",
+      "name": "Bomba de Carne",
       "price": "R$ 5,50",
       "image": "assets/image/bomba/bomba-carne.jpg",
       "id": "bombaCarne"
     },
     {
-      "name": "Presunto",
+      "name": "Bomba de Presunto",
       "price": "R$ 5,50",
       "image": "assets/image/bomba/bomba-presunto.webp",
       "id": "bombaPresunto"

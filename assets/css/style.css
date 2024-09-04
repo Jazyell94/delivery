@@ -119,6 +119,7 @@ body {
 .menu i {
     font-size: 1.2rem;
     color: #ccc;
+    cursor: pointer;
 }
 .menu i.active {
     color: #f25b05;
@@ -222,6 +223,7 @@ body {
     border-radius: 50%;
     color: #fff;
     background-color: #f25b05;
+    cursor: pointer;
 }
 
 @media (min-width: 700px) {
@@ -277,6 +279,9 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+.cart-item .fa-solid {
+    cursor: pointer;
+}
 .cart-item .product-image {
     width: 50px;
     height: 50px;
@@ -302,15 +307,15 @@ body {
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    
-    
     border-radius: 10px;
-    
-    padding: .5rem;
+    padding: 0 .5rem;
     color: #fff;
     background-color: #f25b05;
 }
-
+.total-container .cart-finish {
+    cursor: pointer;
+    line-height: 2rem;
+}
 
 /* Add this to your CSS file */
 .overlay {
@@ -333,12 +338,12 @@ body {
   .overlay-content {
     position: relative;
     display: flex;
-    align-items: center;
+    
     flex-direction: column;
     max-width: 480px;
     overflow: hidden;
     background-color: #fff;
-    text-align: center;
+    
     padding: 20px;
     border-radius: 10px;
     width: 90%;
@@ -353,7 +358,8 @@ body {
     padding-left: .5rem;
     border: 1px solid #ccc;
   }
-  .overlay-content input:active {
+  .overlay-content input:active,
+  .overlay-content input:focus {
     border-color: #f25b05;
   }
   .overlay-content p {
@@ -361,7 +367,7 @@ body {
   }
 
   .overlay-content select {
-    width: 100px;
+    width: 100%;
     height: 2rem;
     margin-top: .5rem;
     border: 1px solid #ccc;

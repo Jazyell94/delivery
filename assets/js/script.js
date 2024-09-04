@@ -302,7 +302,6 @@ function renderPastelProducts( products = pastel ) {
   }
   
   function addClickEventListeners() {
-    console.log('Adicionando eventos de clique...');
     const plusIcons = pastelContainer.querySelectorAll('.fa-plus');
     plusIcons.forEach(icon => {
       icon.removeEventListener('click', handleAddToCartClick); // Remove antes de adicionar para evitar múltiplas adições
@@ -833,19 +832,44 @@ function showCustomerDetailsForm(totalPrice) {
     <input id="customer-address" type="text" placeholder="Endereço">
     <p>Forma de pagamento:</p>
     <select id="payment-method">
-      <option value="Dinheiro">Espécie</option>
-      <option value="Pix">Pix</option>
       <option value="Cartão">Cartão</option>
+      <option value="Pix">Pix</option>
+      <option value="Dinheiro">Dinheiro</option>
     </select>
+    <div id="" >
+      <input id="cash-detailss" type="text" placeholder="Valor em dinheiro">
+    </div>
     <button id="send-to-whatsapp">Enviar</button>
     <i id="close-overlay" class="fa-solid fa-xmark"></i>
-    
   `;
 
   overlay.appendChild(overlayContent);
   document.body.appendChild(overlay);
 
   overlay.classList.add('show');
+
+
+  overlayContent.innerHTML = `
+  <h2>Nome e Endereço</h2>
+  <input id="customer-name" type="text" placeholder="Nome">
+  <input id="customer-address" type="text" placeholder="Endereço">
+  <p>Forma de pagamento:</p>
+  <select id="payment-method">
+    <option value="Cartão">Cartão</option>
+    <option value="Pix">Pix</option>
+    <option value="Dinheiro">Dinheiro</option>
+  </select>
+  <div id="cash-details" style="display: none;">
+      <input id="cash-amount" type="text" placeholder="Precisa de troco?">
+  </div>
+  <button id="send-to-whatsapp">Enviar</button>
+  <i id="close-overlay" class="fa-solid fa-xmark"></i>
+`;
+
+overlay.appendChild(overlayContent);
+document.body.appendChild(overlay);
+
+overlay.classList.add('show');
 
   // Add event listener to the "Enviar para WhatsApp" button
   const sendToWhatsAppButton = overlayContent.querySelector('#send-to-whatsapp');
@@ -856,16 +880,41 @@ function showCustomerDetailsForm(totalPrice) {
   closeOverlayButton.addEventListener('click', () => {
     overlay.classList.remove('show');
   });
+
+  
+// Now that the overlay content is appended, we can add the event listener to the paymentMethodSelect element
+const paymentMethodSelect = overlayContent.querySelector('#payment-method');
+console.log(paymentMethodSelect); // Should find the element now
+
+const cashDetailsDiv = overlayContent.querySelector('#cash-details');
+
+// Função para mostrar/ocultar o campo de dinheiro com base na seleção
+const updateCashDetailsVisibility = () => {
+  console.log('updateCashDetailsVisibility chamado');
+  console.log('Valor selecionado:', paymentMethodSelect.value);
+  if (paymentMethodSelect.value === 'Dinheiro') {
+    console.log('Mostrando cashDetailsDiv');
+    cashDetailsDiv.style.display = 'block';
+  } else {
+    console.log('Ocultando cashDetailsDiv');
+    cashDetailsDiv.style.display = 'none';
+  }
+};
+
+paymentMethodSelect.addEventListener('change', updateCashDetailsVisibility);
+
 }
 
 function sendCartToWhatsApp(totalPrice) {
   const customerNameInput = document.getElementById('customer-name');
   const customerAddressInput = document.getElementById('customer-address');
   const paymentMethodSelect = document.getElementById('payment-method');
+  const trocoEmDinheiroInput = document.getElementById('cash-amount');
 
   const customerName = encodeURIComponent(customerNameInput.value);
   const customerAddress = encodeURIComponent(customerAddressInput.value);
   const paymentMethod = paymentMethodSelect.value;
+  const trocoEmDinheiro = encodeURIComponent(trocoEmDinheiroInput.value);
 
   // Create a string to send to WhatsApp
   let message = `Meu pedido 😋\n\n`;
@@ -881,7 +930,8 @@ function sendCartToWhatsApp(totalPrice) {
   // Add the total price to the message
   message += `____________________________________________\n`;
   message += `*Total:* R$ ${totalPrice.toFixed(2)}\n`;
-  message += `*Pagamento:* ${paymentMethod}`;
+  message += `*Pagamento:* ${paymentMethod}\n`;
+  message += `*Troco para:* ${trocoEmDinheiro}`;
  
 
   // Decode the message string to replace %20 with spaces
