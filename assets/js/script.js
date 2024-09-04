@@ -31,7 +31,7 @@ function verificaHorarioDeFuncionamento() {
           minutoDeFechamento = 0;
           break;
       case 3: // Quarta-feira
-          horaDeAbertura = 14;
+          horaDeAbertura = 7;
           minutoDeAbertura = 30; // Abre às 9:30
           horaDeFechamento = 22;
           minutoDeFechamento = 0;
@@ -96,19 +96,11 @@ window.addEventListener('load', () => {
 });
 
 function checkIfAllResourcesLoaded() {
-  if (allResourcesLoaded && defaultContainer.innerHTML !== '') {
+  if (allResourcesLoaded && pastelContainer.innerHTML !== '') {
     document.body.classList.remove('loading');
     preloader.classList.add('hide');
     preloader.addEventListener('transitionend', () => {
       preloader.classList.remove('preloader');
-      // Adicione os eventos de clique após o preloader ser removido do DOM
-      const plusIcons = defaultContainer.querySelectorAll('.fa-plus');
-      plusIcons.forEach(icon => {
-        icon.addEventListener('click', () => {
-          const product = products[icon.dataset.index];
-          adicionarAoCarrinho(product);
-        });
-      });
     });
   }
 }
@@ -182,16 +174,10 @@ homeIcon.addEventListener("click", () => {
   cartSection.style.display = "none";
 
   // Mostra a div default-content
-  const defaultContent = document.getElementById("default-content");
+  const defaultContent = document.getElementById("pastel-content");
   defaultContent.classList.add("show");
 
-  // Oculta todos os conteúdos da div de categorias
-  const categoryElements = contentSection.children;
-  for (let i = 0; i < categoryElements.length; i++) {
-    if (categoryElements[i].id !== "default-content") { 
-      categoryElements[i].classList.remove("show");
-    }
-  }
+ 
   
   // Adiciona classe para mudar a cor do ícone
   homeIcon.classList.add("active");
@@ -209,21 +195,40 @@ cartIcon.addEventListener("click", () => {
 });
 
 
+// MUDAR A COR DA CATEGORIA ATIVA //
+// Selecione a seção de conteúdo e os itens
 const contentSection = document.getElementById('content-section');
 const items = document.querySelectorAll('.item');
 
+// Adicione a classe active ao item que deve ser exibido inicialmente
+items[0].classList.add('active');
+
+// Adicione um evento de clique a cada item
 items.forEach((item) => {
   item.addEventListener('click', (e) => {
+    // Obtenha a categoria do item clicado
     const category = item.dataset.category;
 
+    // Remova a classe active de todos os itens
+    items.forEach((i) => {
+      i.classList.remove('active');
+    });
+
+    // Adicione a classe active ao item clicado
+    item.classList.add('active');
+
+    // Oculte todos os elementos dentro da seção de conteúdo
     contentSection.querySelectorAll('div').forEach((element) => {
       element.style.display = 'none';
     });
 
+    // Selecione o elemento de conteúdo correspondente à categoria
     const contentElement = contentSection.querySelector(`#${category}-content`);
+
+    // Exiba o elemento de conteúdo
     contentElement.style.display = 'grid';
 
-    // Adicione isso para mostrar todos os elementos dentro do conteúdo
+    // Exiba todos os elementos dentro do conteúdo
     contentElement.querySelectorAll('*').forEach((element) => {
       element.style.display = '';
     });
@@ -233,7 +238,7 @@ items.forEach((item) => {
 
 // ESTRUTURA PARA OCUTAR TODAS AS CATEGORIAS NO CONTEUDO PADRAO //
 const categories = document.querySelectorAll('.hidden');
-const defaultContent = document.getElementById('default-content');
+const defaultContent = document.getElementById('pastel-content');
 
   categories.forEach((category) => {
     category.style.display = 'none';
@@ -241,97 +246,10 @@ const defaultContent = document.getElementById('default-content');
 
   defaultContent.style.display = 'grid';
 
-  // Add event listener to category links
-  const categoryLinks = document.querySelectorAll('.category-link');
-  categoryLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const categoryId = e.target.dataset.category;
-      const categoryContent = document.getElementById(`${categoryId}-content`);
-
-      categories.forEach((category) => {
-        category.style.display = 'none';
-      });
-
-      categoryContent.style.display = 'block';
-    });
-  });
 //////////////////////////////////////////////////////////////////////
 
-// ESTRUTURA PARA DEFAULT CONTAINER //
-let defaultContainer = document.getElementById('default-content');
-let products = [];
-
-fetch('data/default.json')
-  .then(response => response.json())
-  .then(data => {
-    products = data;
-    renderDefaultProducts();
-});
-
-function renderDefaultProducts() {
-  defaultContainer.innerHTML = '';
-  products.forEach((product, index) => {
-    const productHTML = `
-      <div class="product-container">
-        <div class="content">
-          <div class="product-img">
-            <img src="${product.image}" alt="">
-          </div>
-          <div class="product-desc">
-            <span>${product.name}</span>
-            <div class="price">
-              <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    defaultContainer.insertAdjacentHTML('beforeend', productHTML);
-  });
-
-  // Notifica o preloader que os recursos foram carregados
-  checkIfAllResourcesLoaded();
 
 
-  const plusIcons = defaultContainer.querySelectorAll('.fa-plus');
-  plusIcons.forEach(icon => {
-  icon.addEventListener('click', () => {
-    const product = products[icon.dataset.index];
-    adicionarAoCarrinho(product);
-    mostrarNotificacao('Produto adicionado ao carrinho!');
-  });
-});
-}
-
-function adicionarAoCarrinho(product) {
-  if (product) {
-    updateCart(product, 'add');
-  } else {
-    console.error("Produto não encontrado");
-  }
-}
-
-function adicionarAoCarrinho(product) {
-  if (product) {
-    updateCart(product, 'add');
-  } else {
-    console.error("Produto não encontrado");
-  }
-}
-
-function imageLoaded() {
-  // Verifica se todas as imagens foram carregadas
-  const images = defaultContainer.querySelectorAll('img');
-  const allImagesLoaded = Array.prototype.every.call(images, function(image) {
-    return image.complete && image.naturalHeight !== 0;
-  });
-
-  if (allImagesLoaded) {
-    // Notifica o preloader que as imagens foram carregadas
-    checkIfAllResourcesLoaded();
-  }
-}
 //////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA PASTEL CONTAINER //
@@ -376,23 +294,49 @@ function renderPastelProducts( products = pastel ) {
     pastelContainer.insertAdjacentHTML('beforeend', productHTML);
   });
 
-  const plusIcons = pastelContainer.querySelectorAll('.fa-plus');
-  plusIcons.forEach(icon => {
-  icon.addEventListener('click', () => {
-    const product = products[icon.dataset.index];
+    // Notifica o preloader que os recursos foram carregados
+    checkIfAllResourcesLoaded();
+
+    // Adicionar o evento de clique apenas uma vez
+    addClickEventListeners();
+  }
+  
+  function addClickEventListeners() {
+    console.log('Adicionando eventos de clique...');
+    const plusIcons = pastelContainer.querySelectorAll('.fa-plus');
+    plusIcons.forEach(icon => {
+      icon.removeEventListener('click', handleAddToCartClick); // Remove antes de adicionar para evitar múltiplas adições
+      icon.addEventListener('click', handleAddToCartClick);
+    });
+  }
+  
+  function handleAddToCartClick(event) {
+    const icon = event.currentTarget;
+    const product = pastel[icon.dataset.index];
     adicionarAoCarrinho(product);
     mostrarNotificacao('Produto adicionado ao carrinho!');
-  });
-});
-}
-
-function adicionarAoCarrinho(product) {
-  if (product) {
-    updateCart(product, 'add');
-  } else {
-    console.error("Produto não encontrado");
   }
-}
+  
+  function adicionarAoCarrinho(product) {
+    if (product) {
+      updateCart(product, 'add');
+    } else {
+      console.error("Produto não encontrado");
+    }
+  }
+  
+  function imageLoaded() {
+    // Verifica se todas as imagens foram carregadas
+    const images = pastelContainer.querySelectorAll('img');
+    const allImagesLoaded = Array.prototype.every.call(images, function(image) {
+      return image.complete && image.naturalHeight !== 0;
+    });
+  
+    if (allImagesLoaded) {
+      // Notifica o preloader que as imagens foram carregadas
+      checkIfAllResourcesLoaded();
+    }
+  }
 //////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA BOMBA CONTAINER //
@@ -436,6 +380,8 @@ function renderBombaProducts( products = bomba ) {
     `;
     bombaContainer.insertAdjacentHTML('beforeend', productHTML);
   });
+
+  checkIfAllResourcesLoaded();
 
   const plusIcons = bombaContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
@@ -497,6 +443,8 @@ function renderCoxinhaProducts( products = coxinha ) {
     `;
     coxinhaContainer.insertAdjacentHTML('beforeend', productHTML);
   });
+
+  checkIfAllResourcesLoaded();
 
   const plusIcons = coxinhaContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
@@ -560,6 +508,8 @@ function renderEsfihaProducts( products = esfiha) {
     esfihaContainer.insertAdjacentHTML('beforeend', productHTML);
   });
 
+  checkIfAllResourcesLoaded();
+
   const plusIcons = esfihaContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
   icon.addEventListener('click', () => {
@@ -622,6 +572,8 @@ function renderBebidasProducts(products = bebidas) {
     `;
     bebidasContainer.insertAdjacentHTML('beforeend', productHTML);
   });
+
+  checkIfAllResourcesLoaded();
 
 
   const plusIcons = bebidasContainer.querySelectorAll('.fa-plus');

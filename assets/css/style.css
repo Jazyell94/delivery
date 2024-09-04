@@ -6,7 +6,6 @@
     margin: 0;
     box-sizing: border-box;
     text-decoration: none;
-    transition: 1s all;
 }
 section {
     padding: 1rem;
@@ -141,6 +140,9 @@ body {
     padding: .5rem 1rem;
     text-align: center;
     border-radius: 20px;
+    background-color: #747474;
+}
+.categories .content .item.active {
     background-color: #f25b05;
 }
 .categories .content .item span {
