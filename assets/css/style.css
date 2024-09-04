@@ -184,6 +184,8 @@ body {
     margin-bottom: 1.8rem
 }
 
+
+
 .products .product-container .content {
     padding: .5rem 0;
     display: flex;
@@ -222,53 +224,26 @@ body {
     background-color: #f25b05;
 }
 
-/*//////////// STYLES PARA SECTION PERFIL /////////////*/
-.profile-picture-container .img-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
+@media (min-width: 700px) {
+    .products #bomba-content,
+    .products #pastel-content,
+    .products #coxinha-content,
+    .products #esfiha-content, 
+    .products #bebidas-content { 
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
-.profile-picture-container label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-.profile-picture-container .profile-picture {
-    width: 100%;
-    height: 100%;
-    border-radius: 100%; 
-    object-fit: cover; 
-    border: 1px solid #ddd;
-}
-.profile-picture-container input[type="file"] {
-    display: none;
-}
-.profile-picture-container .profile-name {
-    font-size: 2rem;
-}
-.profile-picture-container .btn {
-    text-align: center;
-
-}
-.profile-picture-container .profile-btn {
-    padding: .5rem .8rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #fff;
-    background-color: #f25b05;
-    border: none;
+@media (min-width: 1050px) {
+    .products #bomba-content,
+    .products #pastel-content,
+    .products #coxinha-content,
+    .products #esfiha-content, 
+    .products #bebidas-content { 
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
-.cart-container {
-    border: 1px solid red;
-    width: 100%;
-    z-index: 99;
-}
+
 
 #loja-fechada {
     display: none;
@@ -282,10 +257,11 @@ body {
 
 
 
-/*//////////////// e4 
-
-4
+/*//////////////// 
  CARRINHO //////////////////*/
+ .cart-container {
+    margin-bottom: 6rem;
+ }
 .cart-vazio {
     height: 80vh;
     display: flex;
