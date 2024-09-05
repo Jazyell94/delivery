@@ -1,14 +1,14 @@
 [
     {
-      "name": "Frango",
+      "name": "Coxinha de Frango",
       "price": "R$ 5,50",
-      "image": "assets/image/coxinha/coxinha-frango.webp",
+      "image": "assets/image/coxinha.png",
       "id": "coxinhaFrango"
     },
     {
-      "name": "Frango catupiry",
+      "name": "Coxinha de F. catupiry",
       "price": "R$ 5,50",
-      "image": "assets/image/coxinha/coxinha-frango-catupiry.jpg",
+      "image": "assets/image/coxinha.png",
       "id": "coxinhaFrangoCatupiry"
     }
   ]

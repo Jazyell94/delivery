@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*///////////// ESTILOS PRINCIPAIS STARTS /////////////*/
 * {
     padding: 0;
     margin: 0;
@@ -18,12 +23,13 @@ body {
     text-align: center;
     margin-bottom: 1rem;
 }
-
 .site-content {
     padding: 0;
 }
+/*///////////// ESTILO PRINCIPAIS ENDS /////////////*/
 
 
+/*///////////// ESTILO LOJA FECHADA STARTS /////////////*/
 .loja-fechada {
     margin: 0;
     padding: 0;
@@ -48,9 +54,12 @@ body {
     width: 100%; 
     height: 300px;
 }
+/*///////////// ESTILO LOJA FECHADA ENDS /////////////*/
 
-
-/* Header styles starts */
+/*///////////// ESTILO HEADER STARTS /////////////*/
+.header {
+    margin-top: .5rem;
+}
 .header .content .perfil {
     display: flex;
     justify-content: space-between;
@@ -58,30 +67,29 @@ body {
 .header .content .perfil .name p {
     margin-bottom: 5px;
     color: #747474;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-family: "Outfit", sans-serif;
 }
 .header .content .perfil .name h3 {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
+    font-family: "Noto Sans", sans-serif;
 }
 .header .content .perfil .icon {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 3rem;
 }
-.header .content .perfil .icon i {
-    font-size: 1.5rem;
- }
 .header .search {
-    background-color: #f1f1f1;
-    border: 1px solid #acacac;
+    background-color: #f5f5f5;
+    border: 1.5px solid #acacac;
     margin-top: 1.5rem;
     padding: .6rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 .header .search i {
     font-size: 1.5rem;
@@ -103,7 +111,7 @@ body {
     outline: none;
     box-shadow: none;
 }
-/* Header styles end */
+/*///////////// ESTILO HEADER ENDS /////////////*/
 
 /* Menu styles starts */
 .menu {
@@ -122,7 +130,7 @@ body {
     cursor: pointer;
 }
 .menu i.active {
-    color: #f25b05;
+    color: #000;
 }
 
 /* Categories styles starts */
@@ -140,17 +148,23 @@ body {
 .categories .content .item {
     padding: .5rem 1rem;
     text-align: center;
-    border-radius: 20px;
-    background-color: #acacac;
+    border-radius: 5px;
+    background: none;
+    border: 1.5px solid #acacac;
 }
 .categories .content .item.active {
-    background-color: #f25b05;
+    background-color: #000;
+    border: none;
+    color: #fff;
 }
 .categories .content .item span {
     font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+}
+.categories .content .item span.active {
     color: #fff;
 }
-
 
 /* Esconde os conteúdos, exceto o padrão */
 .hidden {
@@ -182,7 +196,7 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    margin-bottom: 1.8rem
+    margin-bottom: 1.8rem;
 }
 
 
@@ -193,10 +207,9 @@ body {
     align-items: center;
     flex-direction: column;
     border-radius: 5px;
-    box-shadow: #acacac 1px 1px 10px;
+    box-shadow: #d3d3d3 0 5px 10px;
 }
 .products .product-container .product-img {
-    background: #ccc;
     width: 90%;
     height: 10rem;
     object-fit: cover;
@@ -212,17 +225,21 @@ body {
     width: 90%;
     margin-top: 10px;
 }
+.products .product-container .product-desc .product-name {
+    text-align: center;
+    font-weight: 800;
+}
 .products .product-container .product-desc .price {
+    margin-top: .5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.products .product-container .product-desc .price i {
-    font-size: 1.5rem;
-    padding: 4px;
-    border-radius: 50%;
+.products .product-container .product-desc .price .add-to-cart {
+    padding: .4rem .5rem;
+    border-radius: 5px;
     color: #fff;
-    background-color: #f25b05;
+    background-color: #000;
     cursor: pointer;
 }
 

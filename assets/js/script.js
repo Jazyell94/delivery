@@ -37,7 +37,7 @@ function verificaHorarioDeFuncionamento() {
           minutoDeFechamento = 0;
           break;
       case 4: // Quinta-feira
-          horaDeAbertura = 14;
+          horaDeAbertura = 1;
           minutoDeAbertura = 30; // Abre às 9:30
           horaDeFechamento = 22;
           minutoDeFechamento = 0;
@@ -111,9 +111,9 @@ function saudacao(horaTransicao = 18) {
   const agora = new Date();
   const hora = agora.getHours();
   if (hora < horaTransicao) {
-    return "Boa tarde! 🌞";
+    return "Boa tarde!";
   } else {
-    return "Boa noite! 🌚";
+    return "Boa noite!";
   }
 }
 
@@ -197,11 +197,14 @@ cartIcon.addEventListener("click", () => {
 
 // MUDAR A COR DA CATEGORIA ATIVA //
 // Selecione a seção de conteúdo e os itens
+// Selecione a seção de conteúdo e os itens
 const contentSection = document.getElementById('content-section');
 const items = document.querySelectorAll('.item');
 
 // Adicione a classe active ao item que deve ser exibido inicialmente
 items[0].classList.add('active');
+// Mude a cor do span para a cor desejada
+items[0].querySelector('span').style.color = 'white'; // Troque 'blue' pela cor desejada
 
 // Adicione um evento de clique a cada item
 items.forEach((item) => {
@@ -212,10 +215,17 @@ items.forEach((item) => {
     // Remova a classe active de todos os itens
     items.forEach((i) => {
       i.classList.remove('active');
+      // Mude a cor do span para a cor original
+      i.querySelector('span').style.color = 'initial';
     });
 
     // Adicione a classe active ao item clicado
     item.classList.add('active');
+    // Mude a cor do span para a cor desejada
+    item.querySelector('span').style.color = 'white'; // Troque 'blue' pela cor desejada
+  
+
+  
 
     // Oculte todos os elementos dentro da seção de conteúdo
     contentSection.querySelectorAll('div').forEach((element) => {
@@ -282,10 +292,12 @@ function renderPastelProducts( products = pastel ) {
             <img src="${product.image}" alt="">
           </div>
           <div class="product-desc">
-            <span>${product.name}</span>
+            <span class="product-name">${product.name}</span>
             <div class="price">
-              <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
+              <span>R$${product.price}</span>
+              <div class="add-to-cart">
+                <i class="fa-solid fa-plus " data-index="${index}"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -367,11 +379,13 @@ function renderBombaProducts( products = bomba ) {
           <div class="product-img">
             <img src="${product.image}" alt="">
           </div>
-          <div class="product-desc">
-            <span>${product.name}</span>
+         <div class="product-desc">
+            <span class="product-name">${product.name}</span>
             <div class="price">
-              <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
+              <span>R$${product.price}</span>
+              <div class="add-to-cart">
+                <i class="fa-solid fa-plus " data-index="${index}"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -431,10 +445,12 @@ function renderCoxinhaProducts( products = coxinha ) {
             <img src="${product.image}" alt="">
           </div>
           <div class="product-desc">
-            <span>${product.name}</span>
+            <span class="product-name">${product.name}</span>
             <div class="price">
-              <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
+              <span>R$${product.price}</span>
+              <div class="add-to-cart">
+                <i class="fa-solid fa-plus " data-index="${index}"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -495,10 +511,12 @@ function renderEsfihaProducts( products = esfiha) {
             <img src="${product.image}" alt="">
           </div>
           <div class="product-desc">
-            <span>${product.name}</span>
+            <span class="product-name">${product.name}</span>
             <div class="price">
-              <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
+              <span>R$${product.price}</span>
+              <div class="add-to-cart">
+                <i class="fa-solid fa-plus " data-index="${index}"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -560,10 +578,12 @@ function renderBebidasProducts(products = bebidas) {
             <img src="${product.image}" alt="">
           </div>
           <div class="product-desc">
-            <span>${product.name}</span>
+            <span class="product-name">${product.name}</span>
             <div class="price">
-              <span>${product.price}</span>
-              <i class="fa-solid fa-plus add-to-cart" data-index="${index}"></i>
+              <span>R$${product.price}</span>
+              <div class="add-to-cart">
+                <i class="fa-solid fa-plus " data-index="${index}"></i>
+              </div>
             </div>
           </div>
         </div>
