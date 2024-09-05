@@ -327,11 +327,8 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border: 1.5px solid #acacac;
     height: 100%;
     font-size: 1rem;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 .cart-item .quantity-container i {
     width: 100%;
@@ -339,8 +336,6 @@ body {
     padding: .2rem;
 }
 .cart-item .quantity-container span {
-    border-top: 1.5px solid #acacac;
-    border-bottom: 1.5px solid #acacac;
     width: 100%;
     text-align: center;
     color: #f25b05;
