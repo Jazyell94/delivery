@@ -461,20 +461,17 @@ body {
     position: absolute;
     right: 0;
     top: 0;
-    padding: .5rem .5rem .5rem .8rem;
+    padding: .8rem;
     
     
-    color: #fff;
-    background-color: #000;
-    -webkit-border-bottom-left-radius: 20px;
-    -moz-border-radius-bottomleft: 20px;
-    border-bottom-left-radius: 20px;
+    color: #000;
+
 }
 
 .overlay-content select {
     background: none;
     color: #000;
-    border-radius: 0;
+    border-radius: 5px;
     padding-left: .5rem;
 }
 
