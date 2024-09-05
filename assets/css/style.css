@@ -125,7 +125,7 @@ body {
     justify-content: space-evenly;
 }
 .menu i {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #acacac;
     cursor: pointer;
 }
@@ -279,7 +279,7 @@ body {
 /*//////////////// 
  CARRINHO //////////////////*/
  .cart-container {
-    margin-bottom: 6rem;
+    margin-bottom: 15rem;
  }
 .cart-vazio {
     height: 80vh;
@@ -288,13 +288,13 @@ body {
     justify-content: center;
 }
 .cart-item {
+    position: relative;
     margin-bottom: .5rem;
     padding: .5rem ;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    border: 1px solid #acacac;
     border-radius: 5px;
+    box-shadow: #d3d3d3 1px 2px 10px 1px;
 }
 .cart-item .fa-solid {
     cursor: pointer;
@@ -302,8 +302,8 @@ body {
 .cart-item .product-image {
     width: 50px;
     height: 50px;
+    margin-right: 1rem;
     object-fit: cover;
-    background-color: #a1a1a1;
 }
 .cart-item .product-image img {
     font-size: .7rem;
@@ -311,29 +311,85 @@ body {
     width: 100%;
     height: 100%;
 }
-.total-container {
-    width: 50%;
-    min-width: 250px;
-    max-width: 250px;
-    position: fixed;
-    bottom: 4rem;
-    right: 1rem;
+.cart-item .product-cart-description {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
-.total-container .cart-total {
+.cart-item .product-cart-description .name {
+    font-weight: 800;
+    margin-bottom: .5rem;
+}
+.cart-item .quantity-container {
+    position: absolute;
+    right: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    border-radius: 10px;
-    padding: 0 .5rem;
-    color: #fff;
-    background-color: #f25b05;
+    justify-content: center;
+    flex-direction: column;
+    border: 1.5px solid #acacac;
+    height: 100%;
+    font-size: 1rem;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
-.total-container .cart-finish {
-    cursor: pointer;
-    line-height: 2rem;
+.cart-item .quantity-container i {
+    width: 100%;
+    height: 100%;
+    padding: .2rem;
+}
+.cart-item .quantity-container span {
+    border-top: 1.5px solid #acacac;
+    border-bottom: 1.5px solid #acacac;
+    width: 100%;
+    text-align: center;
+    color: #f25b05;
+    font-weight: 700;
 }
 
+.total-container {
+    background-color: #fff;
+    padding: 1rem 0;
+    width: 95%;
+    position: fixed;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.total-container .price {
+    color: #f25b05;
+}
+.total-container .sub-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+}
+.total-container .entrega {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.total-container .total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+}
+.total-container .total p {
+    font-weight: 800;
+}
+.total-container .cart-finish {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem;
+    margin-top: 1rem;
+    color: #fff;
+    background-color: #000;
+}
+.total-container .cart-finish p {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
 /* Add this to your CSS file */
 .overlay {
     position: fixed;
@@ -391,7 +447,7 @@ body {
   }
 
   .overlay-content button {
-    background-color: #f25b05;
+    background-color: #000;
     color: #fff;
     width: 100px;
     font-size: 1rem;
@@ -409,7 +465,7 @@ body {
     
     
     color: #fff;
-    background-color: #f25b05;
+    background-color: #000;
     -webkit-border-bottom-left-radius: 20px;
     -moz-border-radius-bottomleft: 20px;
     border-bottom-left-radius: 20px;
@@ -550,7 +606,7 @@ body {
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        background-color: #f25b05;
+        background-color: #000;
         color: #fff;
         font-size: 14px;
       }

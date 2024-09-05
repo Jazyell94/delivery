@@ -689,12 +689,14 @@ function renderCart() {
         <div class="product-image">
           <img src="${product.image}" alt="${product.name}" />
         </div>
-        <span>${product.name}</span>
-        <span>R$ ${priceNumber.toFixed(2)}</span>
+       <div class="product-cart-description">
+          <span class="name">${product.name}</span>
+          <span>R$ ${priceNumber.toFixed(2)}</span>
+       </div>
         <div class="quantity-container">
-          <i class="fa-solid fa-minus" data-product-id="${product.id}"></i>
-          <span id="quantity-${product.id}">${product.quantity}</span>
           <i class="fa-solid fa-plus" data-product-id="${product.id}"></i>
+          <span id="quantity-${product.id}">${product.quantity}</span>
+          <i class="fa-solid fa-minus" data-product-id="${product.id}"></i>
         </div>
       </div>
     `;
@@ -704,11 +706,20 @@ function renderCart() {
 
   const totalPriceHTML = `
     <div class="total-container">
-      <div class="cart-total">
-        Total: R$ ${totalPrice.toFixed(2)}
+        <div class="sub-total">
+            <p>Subtotal: </p> 
+            <span class="price">R$ ${totalPrice.toFixed(2)}</span>
+        </div>
+        <div class="entrega">
+            <p>Entrega:</p>
+            <span class="price">R$ 0,0 </span>
+        </div>
+        <div class="total">
+            <p>Total:</p>
+            <span class="price">R$ ${totalPrice.toFixed(2)}</span>
+        </div>
         <div class="cart-finish">
-          Finalizar
-          <i class="fa-solid fa-chevron-right"></i>
+          <p>Finalizar</p>
         </div>
       </div>
     </div>
