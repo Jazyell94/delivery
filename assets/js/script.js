@@ -43,7 +43,7 @@ function verificaHorarioDeFuncionamento() {
           minutoDeFechamento = 0;
           break;
       case 5: // Sexta-feira
-          horaDeAbertura = 14;
+          horaDeAbertura = 1;
           minutoDeAbertura = 30; 
           horaDeFechamento = 18;
           minutoDeFechamento = 0;
