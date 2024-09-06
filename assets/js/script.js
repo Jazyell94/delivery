@@ -318,8 +318,16 @@ function renderPastelProducts( products = pastel ) {
     plusIcons.forEach(icon => {
       icon.removeEventListener('click', handleAddToCartClick); // Remove antes de adicionar para evitar múltiplas adições
       icon.addEventListener('click', handleAddToCartClick);
+      icon.addEventListener('click', handleVibration); // Adiciona o evento de vibração
     });
   }
+  
+  function handleVibration() {
+    if (navigator.vibrate) {
+      navigator.vibrate(200); // Vibra por 200 milissegundos
+    }
+  }
+  
   
   function handleAddToCartClick(event) {
     const icon = event.currentTarget;
