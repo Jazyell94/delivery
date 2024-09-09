@@ -1,13 +1,13 @@
 [
     {
       "name": "Esfiha de Frango",
-      "price": "R$ 5,50",
+      "price": "R$ 4,00",
       "image": "assets/image/esfiha.webp",
       "id": "esfihaFrango"
     },
     {
       "name": "Esfiha de Carne",
-      "price": "R$ 5,50",
+      "price": "R$ 4,00",
       "image": "assets/image/esfiha.webp",
       "id": "esfihaCarne"
     }

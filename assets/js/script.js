@@ -19,7 +19,7 @@ function verificaHorarioDeFuncionamento() {
           minutoDeFechamento = 0;
           break;
       case 1: // Segunda-feira
-          horaDeAbertura = 14;
+          horaDeAbertura = 1;
           minutoDeAbertura = 30; // Abre às 9:30
           horaDeFechamento = 22;
           minutoDeFechamento = 0;
@@ -127,35 +127,10 @@ window.onload = function() {
     
     saudacaoLoaded = true; // Marca que a saudação foi carregada
     checkIfAllResourcesLoaded(); // Verifica se todos os recursos foram carregados
-    changePlaceholder();
   }
 };
 
 //////////////////////////////////////////////////////////////////////////////////
-
-// ESTRUTURA PARA O PLACEHOLDER MUDAR SOZINHO //
-function changePlaceholder() {
-  const placeholderElement = document.getElementById("search-input"); // Replace with your input field ID
-  if (placeholderElement) { // Add this check
-    const phrases = [
-      "Bomba de presunto",
-      "Coxinha",
-      "Pastel de queijo",
-      "Esfiha de frango",
-      "Coca-cola 2l"
-    ];
-    let currentPhraseIndex = 0;
-
-    setInterval(function() {
-      placeholderElement.placeholder = phrases[currentPhraseIndex];
-      currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-    }, 3000); // Change placeholder every 2 seconds
-  } else {
-    console.log("Error: search-input element not found.");
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA MUDAR A SECTION NO MENU //
 // Seleciona os botões
@@ -197,9 +172,20 @@ cartIcon.addEventListener("click", () => {
 
 // MUDAR A COR DA CATEGORIA ATIVA //
 // Selecione a seção de conteúdo e os itens
-// Selecione a seção de conteúdo e os itens
 const contentSection = document.getElementById('content-section');
 const items = document.querySelectorAll('.item');
+
+// Selecione o input cujo placeholder será alterado
+const input = document.querySelector('input[type="text"]'); // Ajuste o seletor conforme necessário
+
+// Crie um mapeamento entre categorias e placeholders
+const categoryPlaceholders = {
+  pastel: 'Pastel de frango',
+  bomba: 'Bomba de carne',
+  coxinha: 'Coxinha de frango',
+  esfiha: 'Esfiha de carne',
+  bebidas: 'Coca-cola 2l',
+};
 
 // Adicione a classe active ao item que deve ser exibido inicialmente
 items[0].classList.add('active');
@@ -223,9 +209,6 @@ items.forEach((item) => {
     item.classList.add('active');
     // Mude a cor do span para a cor desejada
     item.querySelector('span').style.color = 'white'; // Troque 'blue' pela cor desejada
-  
-
-  
 
     // Oculte todos os elementos dentro da seção de conteúdo
     contentSection.querySelectorAll('div').forEach((element) => {
@@ -242,8 +225,29 @@ items.forEach((item) => {
     contentElement.querySelectorAll('*').forEach((element) => {
       element.style.display = '';
     });
+
+    // Altere o placeholder do input com base na categoria
+    if (input) {
+      input.placeholder = categoryPlaceholders[category] || 'Digite algo'; // Texto padrão se a categoria não for encontrada
+    }
+  });
+
+  // Selecione o botão pela classe
+  const botao = document.querySelector('.item');
+
+  // Adicione um evento de clique ao botão
+  botao.addEventListener('click', () => {
+    // Verifique se o dispositivo suporta vibração
+    if (window.navigator.vibrate) {
+      // Faça o dispositivo vibrar por 500ms
+      window.navigator.vibrate(500);
+    } else {
+      console.log('O dispositivo não suporta vibração');
+    }
   });
 });
+
+
 ////////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA OCUTAR TODAS AS CATEGORIAS NO CONTEUDO PADRAO //
@@ -318,15 +322,9 @@ function renderPastelProducts( products = pastel ) {
     plusIcons.forEach(icon => {
       icon.removeEventListener('click', handleAddToCartClick); // Remove antes de adicionar para evitar múltiplas adições
       icon.addEventListener('click', handleAddToCartClick);
-      icon.addEventListener('click', handleVibration); // Adiciona o evento de vibração
     });
   }
-  
-  function handleVibration() {
-    if (navigator.vibrate) {
-      navigator.vibrate(200); // Vibra por 200 milissegundos
-    }
-  }
+   
   
   
   function handleAddToCartClick(event) {
@@ -702,9 +700,9 @@ function renderCart() {
           <span>R$ ${priceNumber.toFixed(2)}</span>
        </div>
         <div class="quantity-container">
-          <i class="fa-solid fa-plus" data-product-id="${product.id}"></i>
-          <span id="quantity-${product.id}">${product.quantity}</span>
           <i class="fa-solid fa-minus" data-product-id="${product.id}"></i>
+          <span id="quantity-${product.id}">${product.quantity}</span>
+          <i class="fa-solid fa-plus" data-product-id="${product.id}"></i>
         </div>
       </div>
     `;
@@ -712,25 +710,28 @@ function renderCart() {
     totalPrice += priceNumber * product.quantity;
   });
 
+  const subtotal = totalPrice; // Supondo que `totalPrice` já seja o subtotal
+  const deliveryFee = subtotal < 5 ? 3.00 : 0.00;
+  const total = subtotal + deliveryFee;
+  
   const totalPriceHTML = `
-    <div class="total-container">
-        <div class="sub-total">
-            <p>Subtotal: </p> 
-            <span class="price">R$ ${totalPrice.toFixed(2)}</span>
-        </div>
-        <div class="entrega">
-            <p>Entrega:</p>
-            <span class="price">R$ 0,0 </span>
-        </div>
-        <div class="total">
-            <p>Total:</p>
-            <span class="price">R$ ${totalPrice.toFixed(2)}</span>
-        </div>
-        <div class="cart-finish">
-          <p>Finalizar</p>
-        </div>
+      <div class="total-container">
+          <div class="sub-total">
+              <p>Subtotal: </p> 
+              <span class="price">R$ ${subtotal.toFixed(2)}</span>
+          </div>
+          <div class="entrega">
+              <p>Entrega:</p>
+              <span class="price">R$ ${deliveryFee.toFixed(2)}</span>
+          </div>
+          <div class="total">
+              <p>Total:</p>
+              <span class="price">R$ ${total.toFixed(2)}</span>
+          </div>
+          <div class="cart-finish">
+            <p>Finalizar</p>
+          </div>
       </div>
-    </div>
   `;
   cartContainer.insertAdjacentHTML('beforeend', totalPriceHTML);
 
@@ -759,7 +760,6 @@ function renderCart() {
         // Cria o overlay
         const overlay = document.createElement('div');
         overlay.className = 'overlay';
-        console.log('Overlay criado:', overlay);
   
         // Cria a div de confirmação
         const confirmRemodal = document.createElement('div');
@@ -836,7 +836,6 @@ function renderCart() {
   
         // Adiciona o overlay ao DOM e verifica se foi adicionado
         document.body.appendChild(overlay);
-        console.log('Overlay adicionado ao DOM');
         overlay.classList.add('show'); // Garante que o overlay será exibido
       }
     });
@@ -864,29 +863,6 @@ function showCustomerDetailsForm(totalPrice) {
 
   const overlayContent = document.createElement('div');
   overlayContent.className = 'overlay-content';
-
-  overlayContent.innerHTML = `
-    <h2>Nome e Endereço</h2>
-    <input id="customer-name" type="text" placeholder="Nome">
-    <input id="customer-address" type="text" placeholder="Endereço">
-    <p>Forma de pagamento:</p>
-    <select id="payment-method">
-      <option value="Cartão">Cartão</option>
-      <option value="Pix">Pix</option>
-      <option value="Dinheiro">Dinheiro</option>
-    </select>
-    <div id="" >
-      <input id="cash-detailss" type="text" placeholder="Valor em dinheiro">
-    </div>
-    <button id="send-to-whatsapp">Enviar</button>
-    <i id="close-overlay" class="fa-solid fa-xmark"></i>
-  `;
-
-  overlay.appendChild(overlayContent);
-  document.body.appendChild(overlay);
-
-  overlay.classList.add('show');
-
 
   overlayContent.innerHTML = `
   <h2>Nome e Endereço</h2>
@@ -923,19 +899,13 @@ overlay.classList.add('show');
   
 // Now that the overlay content is appended, we can add the event listener to the paymentMethodSelect element
 const paymentMethodSelect = overlayContent.querySelector('#payment-method');
-console.log(paymentMethodSelect); // Should find the element now
-
 const cashDetailsDiv = overlayContent.querySelector('#cash-details');
 
 // Função para mostrar/ocultar o campo de dinheiro com base na seleção
 const updateCashDetailsVisibility = () => {
-  console.log('updateCashDetailsVisibility chamado');
-  console.log('Valor selecionado:', paymentMethodSelect.value);
   if (paymentMethodSelect.value === 'Dinheiro') {
-    console.log('Mostrando cashDetailsDiv');
     cashDetailsDiv.style.display = 'block';
   } else {
-    console.log('Ocultando cashDetailsDiv');
     cashDetailsDiv.style.display = 'none';
   }
 };

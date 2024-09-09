@@ -7,19 +7,19 @@
     },
     {
       "name": "Pastel de F. catupiry",
-      "price": " 4,00",
+      "price": " 4,50",
       "image": "assets/image/pastel.png",
       "id": "pastelFrangoCatupiry"
     },
     {
       "name": "Pastel de Queijo",
-      "price": " 5,50",
+      "price": " 4,50",
       "image": "assets/image/pastel.png",
       "id": "pastelQueijo"
     },
     {
       "name": "Pastel de Carne",
-      "price": " 5,50",
+      "price": " 4,00",
       "image": "assets/image/pastel.png",
       "id": "pastelCarne"
     }
