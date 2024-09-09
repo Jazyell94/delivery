@@ -1,5 +1,11 @@
 [
     {
+      "name": "3 por 10",
+      "price": " 10,00",
+      "image": "assets/image/pastel3.png",
+      "id": "pastelFrango"
+    },
+    {
       "name": "Pastel de Frango",
       "price": " 4,00",
       "image": "assets/image/pastel.png",

@@ -1,13 +1,19 @@
 [
     {
+      "name": "3 por 10",
+      "price": " 10,00",
+      "image": "assets/image/coxinha3.png",
+      "id": "coxinhaFrango"
+    },
+    {
       "name": "Coxinha de Frango",
-      "price": "R$ 4,00",
+      "price": " 4,00",
       "image": "assets/image/coxinha.png",
       "id": "coxinhaFrango"
     },
     {
       "name": "Coxinha F. catupiry",
-      "price": "R$ 4,50",
+      "price": " 4,50",
       "image": "assets/image/coxinha.png",
       "id": "coxinhaFrangoCatupiry"
     }
