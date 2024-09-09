@@ -1,7 +1,7 @@
 // ESTRUTURA PARA FECHAR E ABIR A LOJA //
 function verificaHorarioDeFuncionamento() {
   const agora = new Date();
-  const diaDaSemana = agora.getDay(); // 0 = Domingo, 1 = Segunda-feira, ..., 6 = Sábado
+  const diaDaSemana = agora.getDay();
   const horaAtual = agora.getHours();
   const minutoAtual = agora.getMinutes();
 
@@ -10,7 +10,6 @@ function verificaHorarioDeFuncionamento() {
   let horaDeFechamento;
   let minutoDeFechamento;
 
-  // Defina os horários de abertura e fechamento para cada dia da semana
   switch(diaDaSemana) {
       case 0: // Domingo
           horaDeAbertura = 10;
@@ -20,25 +19,25 @@ function verificaHorarioDeFuncionamento() {
           break;
       case 1: // Segunda-feira
           horaDeAbertura = 1;
-          minutoDeAbertura = 30; // Abre às 9:30
+          minutoDeAbertura = 30; 
           horaDeFechamento = 22;
           minutoDeFechamento = 0;
           break;
       case 2: // Terça-feira
           horaDeAbertura = 14;
-          minutoDeAbertura = 30; // Abre às 9:30
+          minutoDeAbertura = 30; 
           horaDeFechamento = 22;
           minutoDeFechamento = 0;
           break;
       case 3: // Quarta-feira
           horaDeAbertura = 7;
-          minutoDeAbertura = 30; // Abre às 9:30
+          minutoDeAbertura = 30; 
           horaDeFechamento = 22;
           minutoDeFechamento = 0;
           break;
       case 4: // Quinta-feira
           horaDeAbertura = 1;
-          minutoDeAbertura = 30; // Abre às 9:30
+          minutoDeAbertura = 30; 
           horaDeFechamento = 22;
           minutoDeFechamento = 0;
           break;
@@ -74,12 +73,8 @@ function verificaHorarioDeFuncionamento() {
   }
 }
 
-// Verifica o horário a cada minuto (60000 milissegundos)
 setInterval(verificaHorarioDeFuncionamento, 60000);
-
-// Verifica o horário ao carregar a página
 verificaHorarioDeFuncionamento();
-
 ///////////////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA PRELOADER //
@@ -120,65 +115,53 @@ function saudacao(horaTransicao = 18) {
 window.onload = function() {
   const saudacaoElement = document.getElementById("saudacao");
   if (saudacaoElement) {
-    saudacaoElement.innerHTML = saudacao(); // Exibe a saudação inicial
+    saudacaoElement.innerHTML = saudacao(); 
     setInterval(function() {
       saudacaoElement.innerHTML = saudacao();
-    }, 1000); // Atualiza a saudação a cada 1 segundo
+    }, 1000); 
     
-    saudacaoLoaded = true; // Marca que a saudação foi carregada
-    checkIfAllResourcesLoaded(); // Verifica se todos os recursos foram carregados
+    saudacaoLoaded = true; 
+    checkIfAllResourcesLoaded();
   }
 };
-
 //////////////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA MUDAR A SECTION NO MENU //
-// Seleciona os botões
 const homeIcon = document.getElementById("home-icon");
 const cartIcon = document.getElementById("cart-icon");
 
-// Seleciona as sections
 const homeSection = document.getElementById("home-section");
 const cartSection = document.getElementById("cart-section");
 
 homeIcon.classList.add("active");
 
-// Adiciona evento de clique aos botões
 homeIcon.addEventListener("click", () => {
   homeSection.style.display = "block";
   cartSection.style.display = "none";
 
-  // Mostra a div default-content
   const defaultContent = document.getElementById("pastel-content");
   defaultContent.classList.add("show");
 
- 
-  
-  // Adiciona classe para mudar a cor do ícone
   homeIcon.classList.add("active");
   cartIcon.classList.remove("active");
 });
 
-// Adiciona evento de clique aos botões
 cartIcon.addEventListener("click", () => {
   homeSection.style.display = "none";
   cartSection.style.display = "block";
   
-  // Adiciona classe para mudar a cor do ícone
   homeIcon.classList.remove("active");
   cartIcon.classList.add("active");
 });
 
 
 // MUDAR A COR DA CATEGORIA ATIVA //
-// Selecione a seção de conteúdo e os itens
 const contentSection = document.getElementById('content-section');
 const items = document.querySelectorAll('.item');
 
-// Selecione o input cujo placeholder será alterado
-const input = document.querySelector('input[type="text"]'); // Ajuste o seletor conforme necessário
+// Selecione o input que o placeholder será alterado //
+const input = document.querySelector('input[type="text"]');
 
-// Crie um mapeamento entre categorias e placeholders
 const categoryPlaceholders = {
   pastel: 'Pastel de frango',
   bomba: 'Bomba de carne',
@@ -187,67 +170,51 @@ const categoryPlaceholders = {
   bebidas: 'Coca-cola 2l',
 };
 
-// Adicione a classe active ao item que deve ser exibido inicialmente
 items[0].classList.add('active');
-// Mude a cor do span para a cor desejada
-items[0].querySelector('span').style.color = 'white'; // Troque 'blue' pela cor desejada
+items[0].querySelector('span').style.color = 'white'; 
 
-// Adicione um evento de clique a cada item
 items.forEach((item) => {
   item.addEventListener('click', (e) => {
-    // Obtenha a categoria do item clicado
     const category = item.dataset.category;
 
-    // Remova a classe active de todos os itens
     items.forEach((i) => {
       i.classList.remove('active');
-      // Mude a cor do span para a cor original
       i.querySelector('span').style.color = 'initial';
     });
 
-    // Adicione a classe active ao item clicado
     item.classList.add('active');
-    // Mude a cor do span para a cor desejada
-    item.querySelector('span').style.color = 'white'; // Troque 'blue' pela cor desejada
+    item.querySelector('span').style.color = 'white'; 
 
-    // Oculte todos os elementos dentro da seção de conteúdo
     contentSection.querySelectorAll('div').forEach((element) => {
       element.style.display = 'none';
     });
 
-    // Selecione o elemento de conteúdo correspondente à categoria
+    // EXIBIR OS PRODUTOS DE ACORDO COM A CATEGORIA //
     const contentElement = contentSection.querySelector(`#${category}-content`);
-
-    // Exiba o elemento de conteúdo
     contentElement.style.display = 'grid';
 
-    // Exiba todos os elementos dentro do conteúdo
     contentElement.querySelectorAll('*').forEach((element) => {
       element.style.display = '';
     });
 
-    // Altere o placeholder do input com base na categoria
+    // ALTERA O PLACEHOLDER //
     if (input) {
-      input.placeholder = categoryPlaceholders[category] || 'Digite algo'; // Texto padrão se a categoria não for encontrada
+      input.placeholder = categoryPlaceholders[category] || 'Digite algo';
     }
   });
 
-  // Selecione o botão pela classe
+ 
+  // VIBRAR O DISPOSITIVIO AO CLICAR NA CATEGORIA //
   const botao = document.querySelector('.item');
 
-  // Adicione um evento de clique ao botão
   botao.addEventListener('click', () => {
-    // Verifique se o dispositivo suporta vibração
     if (window.navigator.vibrate) {
-      // Faça o dispositivo vibrar por 500ms
       window.navigator.vibrate(500);
     } else {
       console.log('O dispositivo não suporta vibração');
     }
   });
 });
-
-
 ////////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA OCUTAR TODAS AS CATEGORIAS NO CONTEUDO PADRAO //
@@ -259,12 +226,7 @@ const defaultContent = document.getElementById('pastel-content');
   });
 
   defaultContent.style.display = 'grid';
-
 //////////////////////////////////////////////////////////////////////
-
-
-
-//////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA PASTEL CONTAINER //
 let pastelContainer = document.getElementById('pastel-content');
@@ -310,23 +272,21 @@ function renderPastelProducts( products = pastel ) {
     pastelContainer.insertAdjacentHTML('beforeend', productHTML);
   });
 
-    // Notifica o preloader que os recursos foram carregados
+    // Notifica o preloader que os recursos foram carregados //
     checkIfAllResourcesLoaded();
 
-    // Adicionar o evento de clique apenas uma vez
+    // Adicionar o evento de clique apenas uma vez //
     addClickEventListeners();
   }
   
   function addClickEventListeners() {
     const plusIcons = pastelContainer.querySelectorAll('.fa-plus');
     plusIcons.forEach(icon => {
-      icon.removeEventListener('click', handleAddToCartClick); // Remove antes de adicionar para evitar múltiplas adições
+      icon.removeEventListener('click', handleAddToCartClick);
       icon.addEventListener('click', handleAddToCartClick);
     });
   }
    
-  
-  
   function handleAddToCartClick(event) {
     const icon = event.currentTarget;
     const product = pastel[icon.dataset.index];
@@ -343,14 +303,14 @@ function renderPastelProducts( products = pastel ) {
   }
   
   function imageLoaded() {
-    // Verifica se todas as imagens foram carregadas
+    // Verifica se todas as imagens foram carregadas //
     const images = pastelContainer.querySelectorAll('img');
     const allImagesLoaded = Array.prototype.every.call(images, function(image) {
       return image.complete && image.naturalHeight !== 0;
     });
   
     if (allImagesLoaded) {
-      // Notifica o preloader que as imagens foram carregadas
+      // Notifica o preloader que as imagens foram carregadas //
       checkIfAllResourcesLoaded();
     }
   }
@@ -573,7 +533,6 @@ searchInputBebidas.addEventListener('input', (e) => {
   renderBebidasProducts(filteredBebidas);
 });
 
-// Atualize a função renderBebidasProducts para aceitar um parâmetro de produtos filtrados
 function renderBebidasProducts(products = bebidas) {
   bebidasContainer.innerHTML = '';
   products.forEach((product, index) => {
@@ -600,7 +559,6 @@ function renderBebidasProducts(products = bebidas) {
 
   checkIfAllResourcesLoaded();
 
-
   const plusIcons = bebidasContainer.querySelectorAll('.fa-plus');
   plusIcons.forEach(icon => {
   icon.addEventListener('click', () => {
@@ -609,9 +567,7 @@ function renderBebidasProducts(products = bebidas) {
     mostrarNotificacao('Produto adicionado ao carrinho!');
   });
 });
-
 }
-
 
 function adicionarAoCarrinho(product) {
   if (product) {
@@ -620,7 +576,6 @@ function adicionarAoCarrinho(product) {
     console.error("Produto não encontrado");
   }
 }
-
 ///////////////////////////////////////////////////////////////////////////////
 
 // ESTRUTURA PARA O CARRINHO //
@@ -675,20 +630,21 @@ function renderCart() {
   while (cartContainer.firstChild) cartContainer.removeChild(cartContainer.firstChild);
 
   if (cart.products.length === 0) {
-    // Se o carrinho estiver vazio, exibe a mensagem de carrinho vazio
+    // Se o carrinho estiver vazio, exibe a mensagem de carrinho vazio //
     const emptyCartHTML = `
       <div class="cart-vazio">
         Seu carrinho está vazio!
       </div>
     `;
     cartContainer.insertAdjacentHTML('beforeend', emptyCartHTML);
-    return; // Sai da função, pois não há mais itens para renderizar
+    return;
   }
 
+  // CONVERTER O PREÇO DO JSON PARA NUMERO //
   let totalPrice = 0;
   cart.products.forEach(product => {
-    const priceValue = product.price.replace('R$ ', '').replace(',', '.'); // extrai o valor numérico da string de preço
-    const priceNumber = parseFloat(priceValue); // converte para número
+    const priceValue = product.price.replace('R$ ', '').replace(',', '.'); 
+    const priceNumber = parseFloat(priceValue); 
 
     const cartItemHTML = `
       <div class="cart-item">
@@ -710,7 +666,7 @@ function renderCart() {
     totalPrice += priceNumber * product.quantity;
   });
 
-  const subtotal = totalPrice; // Supondo que `totalPrice` já seja o subtotal
+  const subtotal = totalPrice;
   const deliveryFee = subtotal < 5 ? 3.00 : 0.00;
   const total = subtotal + deliveryFee;
   
@@ -744,7 +700,7 @@ function renderCart() {
       const productId = icon.getAttribute('data-product-id');
       const product = cart.products.find(p => p.id === productId);
       product.quantity++;
-      renderCart(); // Re-renderiza o carrinho
+      renderCart();
     });
   });
 
@@ -755,7 +711,7 @@ function renderCart() {
   
       if (product.quantity > 1) {
         product.quantity--;
-        renderCart(); // Atualiza o carrinho com a nova quantidade
+        renderCart(); 
       } else {
         // Cria o overlay
         const overlay = document.createElement('div');
@@ -840,23 +796,12 @@ function renderCart() {
       }
     });
   });
-  
-  
-  
-  
-  
-  
-  
-  
 
   // Adiciona event listener ao botão "Finalizar"
   const finishButton = cartContainer.querySelector('.cart-finish');
   finishButton.addEventListener('click', () => showCustomerDetailsForm(totalPrice));
 }
 
-
-
-// Update the showCustomerDetailsForm function
 function showCustomerDetailsForm(totalPrice) {
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
@@ -886,18 +831,16 @@ document.body.appendChild(overlay);
 
 overlay.classList.add('show');
 
-  // Add event listener to the "Enviar para WhatsApp" button
+  // ADC UM EVENTO AO BOTÃO "Enviar para WhatsApp"
   const sendToWhatsAppButton = overlayContent.querySelector('#send-to-whatsapp');
   sendToWhatsAppButton.addEventListener('click', () => sendCartToWhatsApp(totalPrice));
 
-  // Add event listener to the "Fechar" button
+  // ADC UM EVENTO AO BOTÃO "Fechar" 
   const closeOverlayButton = overlayContent.querySelector('#close-overlay');
   closeOverlayButton.addEventListener('click', () => {
     overlay.classList.remove('show');
   });
 
-  
-// Now that the overlay content is appended, we can add the event listener to the paymentMethodSelect element
 const paymentMethodSelect = overlayContent.querySelector('#payment-method');
 const cashDetailsDiv = overlayContent.querySelector('#cash-details');
 
@@ -925,33 +868,27 @@ function sendCartToWhatsApp(totalPrice) {
   const paymentMethod = paymentMethodSelect.value;
   const trocoEmDinheiro = encodeURIComponent(trocoEmDinheiroInput.value);
 
-  // Create a string to send to WhatsApp
+  // CRIA A MENSAGEM PARA ENVIAR AO WHATSAPP
   let message = `Meu pedido 😋\n\n`;
   message += `*Nome:* ${customerName}\n`;
   message += `*Endereço:* ${customerAddress}\n`;
   message += `*Produtos:*\n`;
 
-  // Loop through the cart items and add them to the message
   cart.products.forEach(product => {
     message += `  ${product.name} x ${product.quantity}\n`;
   });
 
-  // Add the total price to the message
   message += `____________________________________________\n`;
   message += `*Total:* R$ ${totalPrice.toFixed(2)}\n`;
   message += `*Pagamento:* ${paymentMethod}\n`;
   message += `*Troco para:* ${trocoEmDinheiro}`;
  
-
-  // Decode the message string to replace %20 with spaces
   message = decodeURIComponent(message);
 
-  // Open WhatsApp with the message
+  // LINK PARA ABRIR O WHATSAPP
   const whatsappUrl = `https://api.whatsapp.com/send?phone=5586999412880&text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, '_blank');
-
 }
-
 ////////////////////////////////////////////////////////////////////////////
 
 // FUNÇÃO PARA MOSTRAR NOTIFICAÇÃO AO ADCIONAR AO CARRINHO //
@@ -984,5 +921,4 @@ function mostrarNotificacao(mensagem) {
     notificacao.remove();
   }, 5000); // 5000 ms = 5 segundos
 }
-
 /////////////////////////////////////////////////////////////////////////
